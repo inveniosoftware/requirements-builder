@@ -10,7 +10,6 @@
 """Build requirements files from setup.py requirements."""
 
 import os
-import re
 import sys
 
 from setuptools import setup
@@ -49,11 +48,10 @@ class PyTest(TestCommand):
 
 
 # Get the version string.  Cannot be done with import!
-with open(os.path.join('requirements_builder', 'version.py'), 'rt') as f:
-    version = re.search(
-        '__version__\s*=\s*"(?P<version>.*)"\n',
-        f.read()
-    ).group('version')
+g = {}
+with open(os.path.join('requirements_builder', 'version.py'), 'rt') as fp:
+    exec(fp.read(), g)
+    version = g['__version__']
 
 
 with open('README.rst') as readme_file:
@@ -63,6 +61,8 @@ with open('CHANGES.rst') as history_file:
     history = history_file.read().replace('.. :changes:', '')
 
 requirements = [
+    'click>=5.0.0',
+    'mock>=1.3.0',
 ]
 
 test_requirements = [
@@ -94,6 +94,11 @@ setup(
     author="Invenio Collaboration",
     author_email='info@invenio-software.org',
     url='https://github.com/inveniosoftware/requirements-builder',
+    entry_points={
+        'console_scripts': [
+            "requirements-builder = requirements_builder.cli:cli"
+        ]
+    },
     packages=[
         'requirements_builder',
     ],

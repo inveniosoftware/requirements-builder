@@ -5,4 +5,4 @@
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
 
-# Flask==0.10
+click==5.0.0

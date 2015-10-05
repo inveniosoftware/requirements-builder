@@ -7,11 +7,10 @@
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
 
-"""Generate minimal requirements from `setup.py` + `requirements-devel.txt`."""
+"""Generate requirements from `setup.py` and `requirements-devel.txt`."""
 
 from __future__ import absolute_import, print_function
 
-import argparse
 import re
 import sys
 
@@ -66,12 +65,9 @@ def parse_pip_file(path):
                         if k not in rdev:
                             rdev[k] = v
                     rnormal.extend(subrnormal)
-                    result.extend(substuff)
-
                 elif line.startswith('-'):
                     # another special command we don't recognize
                     stuff.append(line)
-
                 else:
                     # ordenary requirement, similary to them used in setup.py
                     rnormal.append(line)
@@ -83,45 +79,26 @@ def parse_pip_file(path):
 
     return rdev, rnormal, stuff
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='Calculates requirements for different purposes',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-    parser.add_argument(
-        '-l', '--level',
-        choices=['min', 'pypi', 'dev'],
-        default='pypi',
-        help='Specifies desired requirements level.'
-             '"min" requests the minimal requirement that is specified, '
-             '"pypi" requests the maximum version that satisfies the '
-             'constrains and is available in PyPi. '
-             '"dev" includes experimental developer versions for VCSs.'
-    )
-    parser.add_argument(
-        '-e', '--extras',
-        default='',
-        help='Comma separated list of extras.',
-        type=parse_set
-    )
-    args = parser.parse_args()
 
+def iter_requirements(level, extras, pip_file, setup_fp):
+    """Iterate over requirements."""
     result = dict()
     requires = []
     stuff = []
-    if args.level == 'dev':
-        result, requires, stuff = parse_pip_file('requirements-devel.txt')
+    if level == 'dev':
+        result, requires, stuff = parse_pip_file(pip_file)
 
     with mock.patch.object(setuptools, 'setup') as mock_setup:
-        import setup
-        assert setup  # silence warning about unused imports
+        g = {}
+        exec(setup_fp.read(), g)
+        assert g['setup']  # silence warning about unused imports
 
     # called arguments are in `mock_setup.call_args`
     mock_args, mock_kwargs = mock_setup.call_args
     requires = mock_kwargs.get('install_requires', [])
 
     requires_extras = mock_kwargs.get('extras_require', {})
-    for e in args.extras:
+    for e in extras:
         if e in requires_extras:
             requires.extend(requires_extras[e])
 
@@ -142,10 +119,11 @@ if __name__ == '__main__':
             sys.exit(1)
 
         if '==' in specs:
-            result[pkg.key] = '{}=={}'.format(pkg.project_name, specs['=='])
+            result[pkg.key] = '{}=={}'.format(
+                pkg.project_name, specs['=='])
 
         elif '>=' in specs:
-            if args.level == 'min':
+            if level == 'min':
                 result[pkg.key] = '{}=={}'.format(
                     pkg.project_name,
                     specs['>=']
@@ -154,19 +132,19 @@ if __name__ == '__main__':
                 result[pkg.key] = pkg
 
         elif '>' in specs:
-            if args.level == 'min':
+            if level == 'min':
                 minver_error(pkg.project_name)
             else:
                 result[pkg.key] = pkg
 
         else:
-            if args.level == 'min':
+            if level == 'min':
                 minver_error(pkg.project_name)
             else:
                 result[pkg.key] = pkg
 
     for s in stuff:
-        print(s)
+        yield s
 
-    for k in sorted(result.iterkeys()):
-        print(result[k])
+    for k in sorted(result.keys()):
+        yield str(result[k])

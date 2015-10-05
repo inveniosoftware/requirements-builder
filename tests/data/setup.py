@@ -7,12 +7,16 @@
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
 
+"""Build requirements files from setup.py requirements."""
 
-"""Tests for `requirements-builder` module."""
+from setuptools import setup
 
-from requirements_builder import __version__
+requirements = [
+    'click>=5.0.0',
+    'mock>=1.3.0',
+]
 
-
-def test_version():
-    """Test requirements-builder."""
-    assert __version__
+setup(
+    name='testpkh',
+    install_requires=requirements,
+)

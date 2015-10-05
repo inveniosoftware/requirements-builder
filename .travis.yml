@@ -14,7 +14,6 @@ python:
   - "3.4"
   - "3.3"
   - "2.7"
-  - "2.6"
   - "pypy"
 
 env:
@@ -25,10 +24,12 @@ env:
 cache:
   - pip
 
-install:
-  # Install test dependencies
+before_install:
+  - "travis_retry pip install --upgrade pip setuptools py"
   - "travis_retry pip install coveralls pep257 Sphinx twine wheel"
+  - "travis_retry pip install isort check-manifest coverage Sphinx"
   - "travis_retry pip install pytest pytest-pep8 pytest-cov pytest-cache"
+install:
   - "travis_retry pip install -r requirements.${REQUIREMENTS}.txt"
   - "travis_retry pip install -e ."
 

@@ -22,6 +22,7 @@ trim_trailing_whitespace = true
 indent_size = 4
 # isort plugin configuration
 multi_line_output = 2
+known_first_party = requirements_builder
 default_section = THIRDPARTY
 
 # RST files (used by sphinx)

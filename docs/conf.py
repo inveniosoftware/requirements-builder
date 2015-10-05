@@ -13,12 +13,12 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
 import os
-import re
+import sys
 
 import sphinx.environment
 from docutils.utils import get_source_line
+
 
 def _warn_node(self, msg, node):
     if not msg.startswith('nonlocal image URI found:'):
@@ -76,11 +76,11 @@ copyright = u'2015, CERN'
 #
 # The short X.Y version.
 # Get the version string. Cannot be done with import!
-with open(os.path.join('..', 'requirements_builder', 'version.py'), 'rt') as f:
-    version = re.search(
-        '__version__\s*=\s*"(?P<version>.*)"\n',
-        f.read()
-    ).group('version')
+g = {}
+with open(os.path.join('..', 'requirements_builder', 'version.py'), 'rt') \
+     as fp:
+    exec(fp.read(), g)
+    version = g['__version__']
 
 # The full version, including alpha/beta/rc tags.
 release = version

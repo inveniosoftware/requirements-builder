@@ -5,8 +5,8 @@
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
 
-pep257 requirements-builder && \
-isort -rc -c **/*.py && \
+pep257 requirements_builder && \
+#isort -rc -c -vb -df -sp .isort.cfg **/*.py && \
 check-manifest && \
 sphinx-build -qnNW docs docs/_build/html && \
 python setup.py test && \

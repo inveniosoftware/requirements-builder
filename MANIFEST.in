@@ -7,12 +7,18 @@
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
 
+include .isort.cfg
+include .editorconfig
+include pytest.ini
+include tox.ini
+include requirements.*.txt
+include .coveragerc
 include AUTHORS.rst
 include CHANGES.rst
 include CONTRIBUTING.rst
 include LICENSE
 include README.rst
-include .coveragerc
+include RELEASE-NOTES.rst
 include run-tests.sh
 
 recursive-include tests *

@@ -5,4 +5,4 @@
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
 
-# -e git+https://github.com/mitsuhiko/flask.git#egg=Flask
+-e git+https://github.com/mitsuhiko/click.git#egg=click

@@ -12,9 +12,6 @@
         :target: https://pypi.python.org/pypi/requirements-builder
 
 
-Build requirements files from setup.py requirements.
-
-Features
---------
-
-* TODO
+Build requirements from setup.py to test your package against minimum, latest
+and development versions of your package dependencies. Particular useful when
+combined with your CI systems build matrix.

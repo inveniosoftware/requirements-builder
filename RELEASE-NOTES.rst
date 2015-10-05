@@ -2,7 +2,7 @@
  Requirements Builder v0.1.0
 =============================
 
-Requirements Builder v0.1.0 was released on 2015-01-11
+Requirements Builder v0.1.0 was released on 2015-10-05
 
 About
 -----

@@ -5,5 +5,4 @@
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
 
-[run]
-source = requirements_builder
+-e git+https://github.com/mitsuhiko/click.git#egg=click
