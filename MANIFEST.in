@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+#
+# This file is part of Requirements Builder
+# Copyright (C) 2015 CERN.
+#
+# Requirements Builder is free software; you can redistribute it and/or
+# modify it under the terms of the Revised BSD License; see LICENSE
+# file for more details.
+
+include AUTHORS.rst
+include CHANGES.rst
+include CONTRIBUTING.rst
+include LICENSE
+include README.rst
+include .coveragerc
+include run-tests.sh
+
+recursive-include tests *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+
+recursive-include docs *.rst conf.py Makefile

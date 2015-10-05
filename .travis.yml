@@ -1,0 +1,52 @@
+# This file is part of Requirements Builder
+# Copyright (C) 2015 CERN.
+#
+# Requirements Builder is free software; you can redistribute it and/or
+# modify it under the terms of the Revised BSD License; see LICENSE
+# file for more details.
+
+sudo: false
+
+language: python
+
+python:
+  - "3.5"
+  - "3.4"
+  - "3.3"
+  - "2.7"
+  - "2.6"
+  - "pypy"
+
+env:
+  - REQUIREMENTS=devel
+  - REQUIREMENTS=latest
+  - REQUIREMENTS=lowest
+
+cache:
+  - pip
+
+install:
+  # Install test dependencies
+  - "travis_retry pip install coveralls pep257 Sphinx twine wheel"
+  - "travis_retry pip install pytest pytest-pep8 pytest-cov pytest-cache"
+  - "travis_retry pip install -r requirements.${REQUIREMENTS}.txt"
+  - "travis_retry pip install -e ."
+
+script: ./run-tests.sh
+
+after_success:
+  - coveralls
+
+notifications:
+  email: false
+
+deploy:
+  provider: pypi
+  user: inveniosoftware
+  password:
+    secure: CHANGEME
+  distributions: "sdist bdist_wheel"
+  on:
+    tags: true
+    python: "2.7"
+    condition: $REQUIREMENTS = latest

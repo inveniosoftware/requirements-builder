@@ -1,0 +1,41 @@
+# This file is part of Requirements Builder
+# Copyright (C) 2015 CERN.
+#
+# Requirements Builder is free software; you can redistribute it and/or
+# modify it under the terms of the Revised BSD License; see LICENSE
+# file for more details.
+
+# http://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Python files
+[*.py]
+indent_size = 4
+# isort plugin configuration
+multi_line_output = 2
+default_section = THIRDPARTY
+
+# RST files (used by sphinx)
+[*.rst]
+indent_size = 4
+
+# CSS, HTML, JS, JSON, YML
+[*.{css,html,js,json,yml}]
+indent_size = 2
+
+# Matches the exact files either package.json or .travis.yml
+[{package.json,.travis.yml}]
+indent_size = 2
+
+# Dockerfile
+[Dockerfile]
+indent_size = 4
