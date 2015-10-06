@@ -1,14 +1,22 @@
+..
+    This file is part of Requirements-Builder
+    Copyright (C) 2015 CERN.
+
+    Requirements-Builder is free software; you can redistribute it and/or
+    modify it under the terms of the Revised BSD License; see LICENSE
+    file for more details.
+
 Contributing
-------------
+============
 
 Contributions are welcome, and they are greatly appreciated! Every
 little bit helps, and credit will always be given.
 
 Types of Contributions
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 Report Bugs
-"""""""""""
+~~~~~~~~~~~
 
 Report bugs at https://github.com/inveniosoftware/requirements-builder/issues.
 
@@ -19,26 +27,26 @@ If you are reporting a bug, please include:
 * Detailed steps to reproduce the bug.
 
 Fix Bugs
-""""""""
+~~~~~~~~
 
 Look through the GitHub issues for bugs. Anything tagged with "bug"
 is open to whoever wants to implement it.
 
 Implement Features
-""""""""""""""""""
+~~~~~~~~~~~~~~~~~~
 
 Look through the GitHub issues for features. Anything tagged with "feature"
 is open to whoever wants to implement it.
 
 Write Documentation
-"""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~
 
-Requirements Builder could always use more documentation, whether as part of the
-official Requirements Builder docs, in docstrings, or even on the web in blog posts,
+Requirements-Builder could always use more documentation, whether as part of the
+official Requirements-Builder docs, in docstrings, or even on the web in blog posts,
 articles, and such.
 
 Submit Feedback
-"""""""""""""""
+~~~~~~~~~~~~~~~
 
 The best way to send feedback is to file an issue at https://github.com/inveniosoftware/requirements-builder/issues.
 
@@ -50,7 +58,7 @@ If you are proposing a feature:
   are welcome :)
 
 Get Started!
-~~~~~~~~~~~~
+------------
 
 Ready to contribute? Here's how to set up `requirements-builder` for local development.
 
@@ -99,7 +107,7 @@ Ready to contribute? Here's how to set up `requirements-builder` for local devel
 7. Submit a pull request through the GitHub website.
 
 Pull Request Guidelines
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
 Before you submit a pull request, check that it meets these guidelines:
 

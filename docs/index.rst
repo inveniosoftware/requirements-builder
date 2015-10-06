@@ -1,25 +1,21 @@
+..
+    This file is part of Requirements-Builder
+    Copyright (C) 2015 CERN.
+
+    Requirements-Builder is free software; you can redistribute it and/or
+    modify it under the terms of the Revised BSD License; see LICENSE
+    file for more details.
+
 .. include:: ../README.rst
 
-Installation
-------------
-
-At the command line::
-
-    $ pip install requirements-builder
-
-Or, if you have virtualenvwrapper installed::
-
-    $ mkvirtualenv requirements-builder
-    $ pip install requirements-builder
-
 Usage
------
+=====
 
 .. automodule:: requirements_builder
 
 
 API Reference
--------------
+=============
 
 .. automodule:: requirements_builder.requirements_builder
    :members:
@@ -31,7 +27,8 @@ API Reference
 .. include:: ../CHANGES.rst
 
 License
--------
+=======
+
 .. include:: ../LICENSE
 
 .. include:: ../AUTHORS.rst

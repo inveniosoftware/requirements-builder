@@ -1,4 +1,4 @@
-Credits
+Authors
 -------
 
 * Marco Neumann <marco@crepererum.net>

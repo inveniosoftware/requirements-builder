@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of Requirements Builder
+# This file is part of Requirements-Builder
 # Copyright (C) 2015 CERN.
 #
-# Requirements Builder is free software; you can redistribute it and/or
+# Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
 
-"""Version information for Requirements Builder.
+"""Version information for Requirements-Builder.
 
 This file is imported by ``requirements-builder.__init__``, and parsed by
 ``setup.py`` as well as ``docs/conf.py``.

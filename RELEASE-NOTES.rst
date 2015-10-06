@@ -1,29 +1,34 @@
 =============================
- Requirements Builder v0.1.0
+ Requirements-Builder v0.1.0
 =============================
 
-Requirements Builder v0.1.0 was released on 2015-10-05
+Requirements-Builder v0.1.0 was released on October 6, 2015.
 
 About
 -----
 
-BBuild requirements files from setup.py requirements.
+Build requirements files from setup.py requirements.
+
+What's new
+----------
+
+- Initial public release
 
 Installation
 ------------
 
-   $ pip install requirements-builder
-
-What's new
-----------
+   $ pip install requirements-builder==0.1.0
 
 Documentation
 -------------
 
    http://pythonhosted.org/requirements-builder/
 
-Website
--------
+Happy hacking and thanks for flying Requirements-Builder.
 
-   https://github.com/inveniosoftware/requirements-builder
-
+| Invenio Development Team
+|   Email: info@invenio-software.org
+|   IRC: #invenio on irc.freenode.net
+|   Twitter: http://twitter.com/inveniosoftware
+|   GitHub: https://github.com/inveniosoftware/requirements-builder
+|   URL: http://invenio-software.org

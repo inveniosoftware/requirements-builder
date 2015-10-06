@@ -1,7 +1,7 @@
-# This file is part of Requirements Builder
+# This file is part of Requirements-Builder
 # Copyright (C) 2015 CERN.
 #
-# Requirements Builder is free software; you can redistribute it and/or
+# Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
 
@@ -26,12 +26,11 @@ cache:
 
 before_install:
   - "travis_retry pip install --upgrade pip setuptools py"
-  - "travis_retry pip install coveralls pep257 Sphinx twine wheel"
-  - "travis_retry pip install isort check-manifest coverage Sphinx"
-  - "travis_retry pip install pytest pytest-pep8 pytest-cov pytest-cache"
+  - "travis_retry pip install coveralls twine wheel"
+
 install:
   - "travis_retry pip install -r requirements.${REQUIREMENTS}.txt"
-  - "travis_retry pip install -e ."
+  - "travis_retry pip install -e .[all]"
 
 script: ./run-tests.sh
 
