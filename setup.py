@@ -94,7 +94,7 @@ setup(
     description=__doc__,
     long_description=readme + '\n\n' + history,
     author="Invenio Collaboration",
-    author_email='info@invenio-software.org',
+    author_email='info@inveniosoftware.org',
     url='https://github.com/inveniosoftware/requirements-builder',
     entry_points={
         'console_scripts': [
