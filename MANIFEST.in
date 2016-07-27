@@ -24,5 +24,6 @@ include run-tests.sh
 recursive-include tests *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
+recursive-exclude * .*.sw?
 
 recursive-include docs *.rst conf.py Makefile
