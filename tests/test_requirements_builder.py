@@ -27,16 +27,24 @@ def test_iter_requirements():
     """Test requirements-builder."""
     # Min
     with open(SETUP) as f:
-        assert list(iter_requirements("min", [], '', f)) == \
-            ['click==5.0.0', 'mock==1.3.0']
+        assert list(iter_requirements("min", [], '', f)) == [
+            'click==5.0.0',
+            'mock==1.3.0',
+            'invenio-db[versioning,mysql,postgresql]==1',
+        ]
 
     # PyPI
     with open(SETUP) as f:
-        assert list(iter_requirements("pypi", [], '', f)) == \
-            ['click>=5.0.0', 'mock>=1.3.0']
+        assert list(iter_requirements("pypi", [], '', f)) == [
+            'click>=5.0.0',
+            'mock>=1.3.0',
+            'invenio-db[versioning,mysql,postgresql]>=1',
+        ]
 
     # Dev
     with open(SETUP) as f:
-        assert list(iter_requirements("dev", [], REQ, f)) == \
-            ['-e git+https://github.com/mitsuhiko/click.git#egg=click',
-             'mock>=1.3.0']
+        assert list(iter_requirements("dev", [], REQ, f)) == [
+            '-e git+https://github.com/mitsuhiko/click.git#egg=click',
+            'mock>=1.3.0',
+            'invenio-db[versioning,mysql,postgresql]>=1',
+        ]

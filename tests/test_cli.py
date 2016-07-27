@@ -27,11 +27,19 @@ def test_cli():
         shutil.copytree(DATA, abspath(join(getcwd(), "data/")))
         result = runner.invoke(cli, ['-l', 'min', 'data/setup.py'])
         assert result.exit_code == 0
-        assert result.output == "click==5.0.0\nmock==1.3.0\n"
+        assert result.output == (
+            "click==5.0.0\n"
+            "invenio-db[versioning,mysql]==1\n"
+            "mock==1.3.0\n"
+        )
 
         result = runner.invoke(cli, ['-l', 'pypi', 'data/setup.py'])
         assert result.exit_code == 0
-        assert result.output == "click>=5.0.0\nmock>=1.3.0\n"
+        assert result.output == (
+            "click>=5.0.0\n"
+            "invenio-db[versioning,mysql]>=1\n"
+            "mock>=1.3.0\n"
+        )
 
         result = runner.invoke(cli, ['-l', 'dev', 'data/setup.py'])
         assert result.exit_code == 2
@@ -39,6 +47,8 @@ def test_cli():
         result = runner.invoke(
             cli, ['-l', 'dev', '-r', 'data/req.txt', 'data/setup.py'])
         assert result.exit_code == 0
-        assert result.output == \
-            "-e git+https://github.com/mitsuhiko/click.git#egg=click\n" \
+        assert result.output == (
+            "-e git+https://github.com/mitsuhiko/click.git#egg=click\n"
+            "invenio-db[versioning,mysql]>=1\n"
             "mock>=1.3.0\n"
+        )
