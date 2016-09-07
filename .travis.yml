@@ -1,5 +1,5 @@
 # This file is part of Requirements-Builder
-# Copyright (C) 2015 CERN.
+# Copyright (C) 2015, 2016 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
@@ -20,6 +20,9 @@ env:
   - REQUIREMENTS=devel
   - REQUIREMENTS=latest
   - REQUIREMENTS=lowest
+
+matrix:
+  fast_finish: true
 
 cache:
   - pip
@@ -42,11 +45,11 @@ notifications:
 
 deploy:
   provider: pypi
-  user: inveniosoftware
+  user: jirikuncar
   password:
-    secure: CHANGEME
-  distributions: "sdist bdist_wheel"
+    secure: bOutxlDnZsYDQoq1IiIK9VbTT6hI36gIuWUWfPw6weBX5WdEA7oIM5CCapb7sHcMMHmz57LTJYT9QVjqLXk8Oe7S3ndD7n5BI4M2ysz6o0ZIlQJ8YVChLr0TT7O4i+Xxw5MTUuiOpNtS7r0wEImmWI64PoQHS8VeHJfviUZEZcUxghZUAuGXtq7WiSzzhQH7uEPpbD+6WePB2FOZ2wfxIXJPQ/jiPN6wEaf5nZoyvm/N/bnvKaGYxKWHAjCviYKYzWmK3AlPAq9ELTgeeCHmteKZoUmFur4GbF6z5pT3D5olfA2K2Sv60dx0Bxbr3DOBULUlst2rsnFYsrQw18a3dsy30/rgjDixxPtxxy9fzB4X60QIzsTmFXbXMKBr1aMKYjmwaXhBkxX/S99g1tsuctwUQwj41CW5XVEF154ZSmghyJ1XTqbqKG9tn7zkJHTGrS3Xd+GI9FNBI2/QXZCDWPpsnPxvoSq4giQK8UzPnrnoKDzu25xlftqd9UXkqVMiVYfXGXcjtlL5l28grC/TyLEjxogYFGSiJFChuVPpcS65dgkjSw4M6tDWgSctR1E8VA755ZQ+wPtMSi0C5oemL2gvsB2maeK2i37ytv+Y3Pq6tlZ5c7Lcjb72ktwoqvmGmfsiB8jEoAUyZB4R5OL6utkewMGaEP+QuShxHPDo2/Y=
+  distributions: sdist bdist_wheel
   on:
     tags: true
-    python: "2.7"
-    condition: $REQUIREMENTS = latest
+    python: '2.7'
+    condition: "$REQUIREMENTS = latest"
