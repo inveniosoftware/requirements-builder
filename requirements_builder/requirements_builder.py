@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Requirements-Builder
-# Copyright (C) 2015 CERN.
+# Copyright (C) 2015, 2016 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
@@ -89,7 +89,7 @@ def iter_requirements(level, extras, pip_file, setup_fp):
         result, requires, stuff = parse_pip_file(pip_file)
 
     with mock.patch.object(setuptools, 'setup') as mock_setup:
-        g = {}
+        g = {'__file__': setup_fp.name}
         exec(setup_fp.read(), g)
         assert g['setup']  # silence warning about unused imports
 
