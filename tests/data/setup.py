@@ -12,6 +12,8 @@
 from setuptools import setup
 
 import os
+import testpkh
+
 
 dirname = os.path.dirname(__file__)
 
@@ -22,5 +24,6 @@ requirements = [
 
 setup(
     name='testpkh',
+    version=testpkh.__version__,
     install_requires=requirements,
 )

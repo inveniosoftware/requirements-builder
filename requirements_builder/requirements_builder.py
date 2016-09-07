@@ -11,6 +11,7 @@
 
 from __future__ import absolute_import, print_function
 
+import os
 import re
 import sys
 
@@ -89,8 +90,10 @@ def iter_requirements(level, extras, pip_file, setup_fp):
         result, requires, stuff = parse_pip_file(pip_file)
 
     with mock.patch.object(setuptools, 'setup') as mock_setup:
+        sys.path.append(os.path.dirname(setup_fp.name))
         g = {'__file__': setup_fp.name}
         exec(setup_fp.read(), g)
+        sys.path.pop()
         assert g['setup']  # silence warning about unused imports
 
     # called arguments are in `mock_setup.call_args`
