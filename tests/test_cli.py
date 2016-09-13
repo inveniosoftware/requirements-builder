@@ -42,3 +42,11 @@ def test_cli():
         assert result.output == \
             "-e git+https://github.com/mitsuhiko/click.git#egg=click\n" \
             "mock>=1.3.0\n"
+
+        result = runner.invoke(
+            cli, ['-l', 'min', '-o', 'requirements.txt', 'data/setup.py'])
+        assert result.exit_code == 0
+        assert result.output == ''
+        with open(join(getcwd(), 'requirements.txt')) as f:
+            assert f.read() == \
+                "click==5.0.0\nmock==1.3.0\n"
