@@ -33,7 +33,7 @@ Installation
 Documentation
 -------------
 
-   http://pythonhosted.org/requirements-builder/
+   http://requirements-builder.readthedocs.io/
 
 Happy hacking and thanks for flying Requirements-Builder.
 

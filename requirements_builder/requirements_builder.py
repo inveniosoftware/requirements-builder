@@ -52,7 +52,7 @@ def parse_pip_file(path):
             for line in f:
                 line = line.strip()
 
-                # see https://pip.readthedocs.org/en/1.1/requirements.html
+                # see https://pip.readthedocs.io/en/1.1/requirements.html
                 if line.startswith('-e'):
                     # devel requirement
                     splitted = line.split('#egg=')

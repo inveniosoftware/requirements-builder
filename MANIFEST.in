@@ -9,6 +9,7 @@
 
 include .isort.cfg
 include .editorconfig
+include docs/requirements.txt
 include pytest.ini
 include tox.ini
 include requirements.*.txt
