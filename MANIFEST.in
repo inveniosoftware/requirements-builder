@@ -1,29 +1,28 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Requirements-Builder
-# Copyright (C) 2015 CERN.
+# Copyright (C) 2015, 2016 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
 
-include .isort.cfg
-include .editorconfig
-include docs/requirements.txt
-include pytest.ini
-include tox.ini
-include requirements.*.txt
 include .coveragerc
+include .editorconfig
+include .isort.cfg
+include .lgtm MAINTAINERS
 include AUTHORS.rst
 include CHANGES.rst
 include CONTRIBUTING.rst
 include LICENSE
 include README.rst
 include RELEASE-NOTES.rst
+include docs/requirements.txt
+include pytest.ini
+include requirements.*.txt
 include run-tests.sh
-
-recursive-include tests *
-recursive-exclude * __pycache__
-recursive-exclude * *.py[co]
-
+include tox.ini
 recursive-include docs *.rst conf.py Makefile
+recursive-include tests *
+recursive-exclude * *.py[co]
+recursive-exclude * __pycache__
