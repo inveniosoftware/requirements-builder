@@ -22,8 +22,15 @@ requirements = [
     'mock>=1.3.0',
 ]
 
+extras_require = {
+    'docs': ['Sphinx>=1.4.2'],
+    'tests': ['pytest>=2.7'],
+    'flask': ['Flask>=0.11'],
+}
+
 setup(
     name='testpkh',
     version=testpkh.__version__,
     install_requires=requirements,
+    extras_require=extras_require,
 )

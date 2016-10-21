@@ -42,7 +42,7 @@ def cli(level, extras, req, output, setup):
     if level == 'dev' and not req:
         raise click.UsageError(
             "You must specify --req when using 'dev' level.")
-    extras = set(extras)
+    extras = set(req.strip() for extra in extras for req in extra.split(','))
 
     lines = ('{0}\n'.format(req) for req in iter_requirements(
         level, extras, req, setup
