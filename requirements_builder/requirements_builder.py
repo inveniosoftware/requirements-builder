@@ -70,7 +70,7 @@ def parse_pip_file(path):
                     # another special command we don't recognize
                     stuff.append(line)
                 else:
-                    # ordenary requirement, similary to them used in setup.py
+                    # ordinary requirement, similarly to them used in setup.py
                     rnormal.append(line)
     except IOError:
         print(
@@ -98,14 +98,15 @@ def iter_requirements(level, extras, pip_file, setup_fp):
 
     # called arguments are in `mock_setup.call_args`
     mock_args, mock_kwargs = mock_setup.call_args
-    requires = mock_kwargs.get('install_requires', [])
+    install_requires = mock_kwargs.get('install_requires', [])
+    install_requires.extend(requires)
 
     requires_extras = mock_kwargs.get('extras_require', {})
     for e in extras:
         if e in requires_extras:
-            requires.extend(requires_extras[e])
+            install_requires.extend(requires_extras[e])
 
-    for pkg in pkg_resources.parse_requirements(requires):
+    for pkg in pkg_resources.parse_requirements(install_requires):
         # skip things we already know
         # FIXME be smarter about merging things
         if pkg.key in result:
