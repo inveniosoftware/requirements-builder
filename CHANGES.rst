@@ -11,6 +11,19 @@
 Changes
 =======
 
+Version 0.2.1 (released 2017-01-23)
+-----------------------------------
+
+Bug fixes
+~~~~~~~~~
+
+- Accepts non-`-e` packages from devel file.
+- Sphinx 1.5+ drops support for Python 2.6 and 3.3.
+- Adds Python 3.6 support.
+- Makes `--extras` option accepting comma separated values as
+  described in help.  (#14)
+
+
 Version 0.2.0 (released 2016-09-13)
 -----------------------------------
 
