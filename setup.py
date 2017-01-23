@@ -17,7 +17,6 @@ from setuptools.command.test import test as TestCommand
 
 
 class PyTest(TestCommand):
-
     """Integration of PyTest with setuptools."""
 
     user_options = [('pytest-args=', 'a', 'Arguments to pass to py.test')]
@@ -53,7 +52,6 @@ with open(os.path.join('requirements_builder', 'version.py'), 'rt') as fp:
     exec(fp.read(), g)
     version = g['__version__']
 
-
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
@@ -78,7 +76,8 @@ test_requirements = [
 
 extras_requirements = {
     'docs': [
-        'Sphinx>=1.4.2',
+        'Sphinx<1.5.0,>=1.4.2',
+        'docutils<0.13,>=0.12'
     ],
     'tests': test_requirements,
 }
@@ -121,6 +120,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     tests_require=test_requirements,
     cmdclass={'test': PyTest},

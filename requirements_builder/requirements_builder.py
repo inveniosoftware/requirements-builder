@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Requirements-Builder
-# Copyright (C) 2015, 2016 CERN.
+# Copyright (C) 2015, 2016, 2017 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
@@ -32,7 +32,7 @@ def parse_set(string):
 def minver_error(pkg_name):
     """Report error about missing minimum version constraint and exit."""
     print(
-        'ERROR: specify minimal version of "{}" using '
+        'ERROR: specify minimal version of "{0}" using '
         '">=" or "=="'.format(pkg_name),
         file=sys.stderr
     )
@@ -74,7 +74,7 @@ def parse_pip_file(path):
                     rnormal.append(line)
     except IOError:
         print(
-            'Warning: could not parse requirements file "{}"!',
+            'Warning: could not parse requirements file "{0}"!',
             file=sys.stderr
         )
 
@@ -116,18 +116,20 @@ def iter_requirements(level, extras, pip_file, setup_fp):
                 or (('<=' in specs) and ('<' in specs)):
             print(
                 'ERROR: Do not specify such weird constraints! '
-                '("{}")'.format(pkg),
+                '("{0}")'.format(pkg),
                 file=sys.stderr
             )
             sys.exit(1)
 
         if '==' in specs:
-            result[pkg.key] = '{}=={}'.format(
-                pkg.project_name, specs['=='])
+            result[pkg.key] = '{0}=={1}'.format(
+                pkg.project_name,
+                specs['==']
+            )
 
         elif '>=' in specs:
             if level == 'min':
-                result[pkg.key] = '{}=={}'.format(
+                result[pkg.key] = '{0}=={1}'.format(
                     pkg.project_name,
                     specs['>=']
                 )
