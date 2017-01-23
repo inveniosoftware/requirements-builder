@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Requirements-Builder
-# Copyright (C) 2015 CERN.
+# Copyright (C) 2015, 2017 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
-
 """Build requirements files from setup.py requirements.
 
 .. code-block:: console
@@ -58,6 +57,58 @@ TravisCI:
    install:
      - "travis_retry pip install -r .travis-$REQUIREMENTS-requirements.txt"
      - "pip install -e ."
+
+Tox
+---
+How to integrate Requirements-Builder with tox:
+
+.. code-block:: ini
+
+    [tox]
+    skipdist = True
+
+    envlist =
+        {py27}-{min,pypi,dev}
+        {py34}-{min,pypi,dev}
+        {py35}-{min,pypi,dev}
+        {py36}-{min,pypi,dev}
+
+    [testenv]
+    setenv =
+        PYTHONPATH = {toxinidir}:{toxinidir}
+
+    deps =
+        Requirements-Builder
+
+    commands =
+        min: requirements-builder --level=min -o .tox/min.txt setup.py
+        min: pip install -r .tox/min.txt
+        pypi: requirements-builder --level=min -o .tox/pypi.txt setup.py
+        pypi: pip install -r .tox/pypi.txt
+        dev: requirements-builder -l dev -r devel.txt -o .tox/dev.txt setup.py
+        dev: pip install -r .tox/requirements-dev.txt
+        pip install -e .
+        {envpython} setup.py test # or: py.test, nose, coverage run, etc.
+
+Tox-travis
+^^^^^^^^^^
+When you are using tox, the TravisCI setup becomes much simpler.
+
+.. code-block:: yaml
+
+    language: python
+
+    python:
+      - "2.7"
+      - "3.4"
+      - "3.5"
+      - "3.6"
+
+    install:
+      - pip install tox tox-travis
+
+    script:
+      - tox
 """
 
 from __future__ import absolute_import, print_function
@@ -65,4 +116,4 @@ from __future__ import absolute_import, print_function
 from .requirements_builder import iter_requirements
 from .version import __version__
 
-__all__ = ('__version__',)
+__all__ = ('__version__', )
