@@ -13,38 +13,6 @@ import os
 import sys
 
 from setuptools import setup
-from setuptools.command.test import test as TestCommand
-
-
-class PyTest(TestCommand):
-    """Integration of PyTest with setuptools."""
-
-    user_options = [('pytest-args=', 'a', 'Arguments to pass to py.test')]
-
-    def initialize_options(self):
-        """Initialize options."""
-        TestCommand.initialize_options(self)
-        try:
-            from ConfigParser import ConfigParser
-        except ImportError:
-            from configparser import ConfigParser
-        config = ConfigParser()
-        config.read("pytest.ini")
-        self.pytest_args = config.get("pytest", "addopts").split(" ")
-
-    def finalize_options(self):
-        """Finalize options."""
-        TestCommand.finalize_options(self)
-        self.test_args = []
-        self.test_suite = True
-
-    def run_tests(self):
-        """Run tests."""
-        # import here, cause outside the eggs aren't loaded
-        import pytest
-        errno = pytest.main(self.pytest_args)
-        sys.exit(errno)
-
 
 # Get the version string.  Cannot be done with import!
 g = {}
@@ -58,12 +26,12 @@ with open('README.rst') as readme_file:
 with open('CHANGES.rst') as history_file:
     history = history_file.read().replace('.. :changes:', '')
 
-requirements = [
+install_requires = [
     'click>=5.0.0',
     'mock>=1.3.0',
 ]
 
-test_requirements = [
+tests_require = [
     'check-manifest>=0.25',
     'coverage>=4.0',
     'isort>=4.0.0',
@@ -74,18 +42,22 @@ test_requirements = [
     'pytest>=2.8.0',
 ]
 
-extras_requirements = {
+extras_require = {
     'docs': [
         'Sphinx<1.5.0,>=1.4.2',
-        'docutils<0.13,>=0.12'
+        'docutils<0.13,>=0.12',
     ],
-    'tests': test_requirements,
+    'tests': tests_require,
 }
 
-extras_requirements['all'] = (
-    extras_requirements['tests'] +
-    extras_requirements['docs']
+extras_require['all'] = (
+    extras_require['tests'] +
+    extras_require['docs']
 )
+
+setup_requires = [
+    'pytest-runner>=2.6.2',
+]
 
 setup(
     name='requirements-builder',
@@ -104,9 +76,11 @@ setup(
         'requirements_builder',
     ],
     include_package_data=True,
-    install_requires=requirements,
-    extras_require=extras_requirements,
-    license="BSD",
+    extras_require=extras_require,
+    install_requires=install_requires,
+    setup_requires=setup_requires,
+    tests_require=tests_require,
+    license='BSD',
     zip_safe=False,
     keywords='requirements-builder',
     classifiers=[
@@ -122,6 +96,4 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
-    tests_require=test_requirements,
-    cmdclass={'test': PyTest},
 )
