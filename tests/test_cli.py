@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Requirements-Builder
-# Copyright (C) 2015 CERN.
+# Copyright (C) 2015, 2017 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
-
 
 """Tests for CLI module."""
 
@@ -41,6 +40,7 @@ def test_cli():
         assert result.exit_code == 0
         assert result.output == \
             '-e git+https://github.com/mitsuhiko/click.git#egg=click\n' \
+            'Cython>=0.20\n' \
             'mock>=1.3.0\n'
 
         result = runner.invoke(
