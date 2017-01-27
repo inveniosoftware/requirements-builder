@@ -6,7 +6,7 @@
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
-
+#
 """Tests for CLI module."""
 
 import shutil
@@ -47,7 +47,8 @@ def test_cli():
         assert result.exit_code == 2
 
         result = runner.invoke(
-            cli, ['-l', 'dev', '-r', 'data/req.txt', 'data/setup.py'])
+            cli, ['-l', 'dev', '-r', 'data/req.txt', 'data/setup.py']
+        )
         assert result.exit_code == 0
         if sys.version_info[:2] == (2, 7):
             assert result.output == \
@@ -62,7 +63,8 @@ def test_cli():
                 'mock>=1.3.0\n'
 
         result = runner.invoke(
-            cli, ['-l', 'min', '-o', 'requirements.txt', 'data/setup.py'])
+            cli, ['-l', 'min', '-o', 'requirements.txt', 'data/setup.py']
+        )
         assert result.exit_code == 0
         assert result.output == ''
         with open(join(getcwd(), 'requirements.txt')) as f:
@@ -82,26 +84,25 @@ def test_cli_extras():
         output.append('functools32==3.2.3-2')
     with runner.isolated_filesystem():
         shutil.copytree(DATA, abspath(join(getcwd(), 'data/')))
-        result = runner.invoke(cli, [
-            '-l', 'min', '-e', 'docs', 'data/setup.py'
-        ])
+        result = runner.invoke(
+            cli, ['-l', 'min', '-e', 'docs', 'data/setup.py']
+        )
         assert result.exit_code == 0
-        assert set(result.output.split('\n')) == set(output + [
-            'Sphinx==1.4.2', ''
-        ])
+        assert set(result.output.split('\n')
+                   ) == set(output + ['Sphinx==1.4.2', ''])
 
-        result = runner.invoke(cli, [
-            '-l', 'min', '-e', 'docs, tests', 'data/setup.py'
-        ])
+        result = runner.invoke(
+            cli, ['-l', 'min', '-e', 'docs, tests', 'data/setup.py']
+        )
         assert result.exit_code == 0
-        assert set(result.output.split('\n')) == set(output + [
-            'pytest==2.7', 'Sphinx==1.4.2', ''
-        ])
+        assert set(result.output.split('\n')
+                   ) == set(output + ['pytest==2.7', 'Sphinx==1.4.2', ''])
 
-        result = runner.invoke(cli, [
-            '-l', 'min', '-e', 'docs, tests', '-e', 'flask', 'data/setup.py'
-        ])
+        result = runner.invoke(
+            cli,
+            ['-l', 'min', '-e', 'docs, tests', '-e', 'flask', 'data/setup.py']
+        )
         assert result.exit_code == 0
-        assert set(result.output.split('\n')) == set(output + [
-            'pytest==2.7', 'Sphinx==1.4.2', 'Flask==0.11', ''
-        ])
+        assert set(result.output.split('\n')) == set(
+            output + ['pytest==2.7', 'Sphinx==1.4.2', 'Flask==0.11', '']
+        )

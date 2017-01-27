@@ -6,6 +6,7 @@
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
+#
 """Build requirements files from setup.py requirements.
 
 .. code-block:: console

@@ -6,11 +6,10 @@
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
-
+#
 """Build requirements files from setup.py requirements."""
 
 import os
-import sys
 
 from setuptools import setup
 
@@ -50,14 +49,9 @@ extras_require = {
     'tests': tests_require,
 }
 
-extras_require['all'] = (
-    extras_require['tests'] +
-    extras_require['docs']
-)
+extras_require['all'] = extras_require['tests'] + extras_require['docs']
 
-setup_requires = [
-    'pytest-runner>=2.6.2',
-]
+setup_requires = ['pytest-runner>=2.6.2', ]
 
 setup(
     name='requirements-builder',
@@ -68,13 +62,10 @@ setup(
     author_email='info@inveniosoftware.org',
     url='https://github.com/inveniosoftware/requirements-builder',
     entry_points={
-        'console_scripts': [
-            "requirements-builder = requirements_builder.cli:cli"
-        ]
+        'console_scripts':
+            ["requirements-builder = requirements_builder.cli:cli"]
     },
-    packages=[
-        'requirements_builder',
-    ],
+    packages=['requirements_builder', ],
     include_package_data=True,
     extras_require=extras_require,
     install_requires=install_requires,

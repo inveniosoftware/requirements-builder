@@ -6,7 +6,7 @@
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
-
+#
 """Generate requirements from `setup.py` and `requirements-devel.txt`."""
 
 from __future__ import absolute_import, print_function
@@ -43,7 +43,7 @@ def parse_pip_file(path):
     """Parse pip requirements file."""
     # requirement lines sorted by importance
     # also collect other pip commands
-    rdev = dict()
+    rdev = {}
     rnormal = []
     stuff = []
 
@@ -128,16 +128,12 @@ def iter_requirements(level, extras, pip_file, setup_fp):
             sys.exit(1)
 
         if '==' in specs:
-            result[pkg.key] = '{0}=={1}'.format(
-                pkg.project_name,
-                specs['==']
-            )
+            result[pkg.key] = '{0}=={1}'.format(pkg.project_name, specs['=='])
 
         elif '>=' in specs:
             if level == 'min':
                 result[pkg.key] = '{0}=={1}'.format(
-                    pkg.project_name,
-                    specs['>=']
+                    pkg.project_name, specs['>=']
                 )
             else:
                 result[pkg.key] = pkg
