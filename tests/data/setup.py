@@ -20,6 +20,7 @@ dirname = os.path.dirname(__file__)
 requirements = [
     'click>=5.0.0',
     'mock>=1.3.0',
+    'functools32>=3.2.3-2; python_version=="2.7"',
 ]
 
 extras_require = {

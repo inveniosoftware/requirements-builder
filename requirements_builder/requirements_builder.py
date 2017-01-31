@@ -109,6 +109,11 @@ def iter_requirements(level, extras, pip_file, setup_fp):
     for pkg in pkg_resources.parse_requirements(install_requires):
         # skip things we already know
         # FIXME be smarter about merging things
+
+        # Check for markers and skip if not applicable
+        if pkg.marker is not None and not pkg.marker.evaluate():
+            continue
+
         if pkg.key in result:
             continue
 
