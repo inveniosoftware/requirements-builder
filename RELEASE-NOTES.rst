@@ -1,8 +1,8 @@
 =============================
- Requirements-Builder v0.2.1
+ Requirements-Builder v0.2.2
 =============================
 
-Requirements-Builder v0.2.1 was released on January 23, 2017.
+Requirements-Builder v0.2.2 was released on February 1, 2017.
 
 About
 -----
@@ -12,16 +12,18 @@ Build requirements files from setup.py requirements.
 Bug fixes
 ---------
 
-- Accepts non-`-e` packages from devel file.
-- Sphinx 1.5+ drops support for Python 2.6 and 3.3.
-- Adds Python 3.6 support.
-- Makes `--extras` option accepting comma separated values as
-  described in help.  (#14)
+- Fixes issue with properly building requirements for packages with version
+  markers.
+
+Improvements
+------------
+
+- Adds YAPF auto-formatting configuration.
 
 Installation
 ------------
 
-   $ pip install requirements-builder==0.2.1
+   $ pip install requirements-builder==0.2.2
 
 Documentation
 -------------

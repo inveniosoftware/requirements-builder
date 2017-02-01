@@ -11,6 +11,20 @@
 Changes
 =======
 
+Version 0.2.2 (released 2017-02-01)
+-----------------------------------
+
+Bug fixes
+~~~~~~~~~
+
+- Fixes issue with properly building requirements for packages with version
+  markers.
+
+Improvements
+~~~~~~~~~~~~
+
+- Adds YAPF auto-formatting configuration.
+
 Version 0.2.1 (released 2017-01-23)
 -----------------------------------
 
