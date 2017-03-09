@@ -26,6 +26,9 @@ extras_require = {
     'docs': ['Sphinx>=1.4.2'],
     'tests': ['pytest>=2.7'],
     'flask': ['Flask>=0.11'],
+    ':python_version=="2.7"': [
+        'ipaddr>=2.1.11'
+    ]
 }
 
 setup(

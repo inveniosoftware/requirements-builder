@@ -102,16 +102,25 @@ def iter_requirements(level, extras, pip_file, setup_fp):
     install_requires.extend(requires)
 
     requires_extras = mock_kwargs.get('extras_require', {})
-    for e in extras:
-        if e in requires_extras:
-            install_requires.extend(requires_extras[e])
+    for e, reqs in requires_extras.items():
+        # Handle conditions on extras. See pkginfo_to_metadata function
+        # in Wheel for details.
+        condition = ''
+        if ':' in e:
+            e, condition = e.split(':', 1)
+        if not e or e in extras:
+            if condition:
+                reqs = ['{0}; {1}'.format(r, condition) for r in reqs]
+            install_requires.extend(reqs)
 
     for pkg in pkg_resources.parse_requirements(install_requires):
         # skip things we already know
         # FIXME be smarter about merging things
 
         # Check for markers and skip if not applicable
-        if pkg.marker is not None and not pkg.marker.evaluate():
+
+        if hasattr(pkg, 'marker') and pkg.marker is not None \
+                and not pkg.marker.evaluate():
             continue
 
         if pkg.key in result:
@@ -136,19 +145,23 @@ def iter_requirements(level, extras, pip_file, setup_fp):
                     pkg.project_name, specs['>=']
                 )
             else:
-                result[pkg.key] = pkg
+                result[pkg.key] = '{0}>={1}'.format(
+                    pkg.project_name, specs['>=']
+                )
 
         elif '>' in specs:
             if level == 'min':
                 minver_error(pkg.project_name)
             else:
-                result[pkg.key] = pkg
+                result[pkg.key] = '{0}>{1}'.format(
+                    pkg.project_name, specs['>']
+                )
 
         else:
             if level == 'min':
                 minver_error(pkg.project_name)
             else:
-                result[pkg.key] = pkg
+                result[pkg.key] = pkg.project_name
 
     for s in stuff:
         yield s

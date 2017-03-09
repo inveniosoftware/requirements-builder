@@ -29,7 +29,10 @@ def test_cli():
         assert result.exit_code == 0
         if sys.version_info[:2] == (2, 7):
             assert result.output == \
-                'click==5.0.0\nfunctools32==3.2.3-2\nmock==1.3.0\n'
+                'click==5.0.0\n' \
+                'functools32==3.2.3-2\n' \
+                'ipaddr==2.1.11\n' \
+                'mock==1.3.0\n'
         else:
             assert result.output == 'click==5.0.0\nmock==1.3.0\n'
 
@@ -38,7 +41,8 @@ def test_cli():
 
         if sys.version_info[:2] == (2, 7):
             assert result.output == 'click>=5.0.0\n' \
-                'functools32>=3.2.3-2; python_version == "2.7"\n' \
+                'functools32>=3.2.3-2\n' \
+                'ipaddr>=2.1.11\n' \
                 'mock>=1.3.0\n'
         else:
             assert result.output == 'click>=5.0.0\nmock>=1.3.0\n'
@@ -54,7 +58,8 @@ def test_cli():
             assert result.output == \
                 '-e git+https://github.com/mitsuhiko/click.git#egg=click\n' \
                 'Cython>=0.20\n' \
-                'functools32>=3.2.3-2; python_version == "2.7"\n' \
+                'functools32>=3.2.3-2\n' \
+                'ipaddr>=2.1.11\n' \
                 'mock>=1.3.0\n'
         else:
             assert result.output == \
@@ -70,7 +75,10 @@ def test_cli():
         with open(join(getcwd(), 'requirements.txt')) as f:
             if sys.version_info[:2] == (2, 7):
                 assert f.read() == \
-                    'click==5.0.0\nfunctools32==3.2.3-2\nmock==1.3.0\n'
+                    'click==5.0.0\n' \
+                    'functools32==3.2.3-2\n' \
+                    'ipaddr==2.1.11\n' \
+                    'mock==1.3.0\n'
             else:
                 assert f.read() == \
                     'click==5.0.0\nmock==1.3.0\n'
@@ -82,6 +90,7 @@ def test_cli_extras():
     output = ['click==5.0.0', 'mock==1.3.0']
     if sys.version_info[:2] == (2, 7):
         output.append('functools32==3.2.3-2')
+        output.append('ipaddr==2.1.11')
     with runner.isolated_filesystem():
         shutil.copytree(DATA, abspath(join(getcwd(), 'data/')))
         result = runner.invoke(
