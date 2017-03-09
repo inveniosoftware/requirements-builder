@@ -1,8 +1,8 @@
 =============================
- Requirements-Builder v0.2.2
+ Requirements-Builder v0.2.3
 =============================
 
-Requirements-Builder v0.2.2 was released on February 1, 2017.
+Requirements-Builder v0.2.3 was released on March 9, 2017.
 
 About
 -----
@@ -12,18 +12,13 @@ Build requirements files from setup.py requirements.
 Bug fixes
 ---------
 
-- Fixes issue with properly building requirements for packages with version
-  markers.
-
-Improvements
-------------
-
-- Adds YAPF auto-formatting configuration.
+- Fixes the issue with conditions on extra_require not being taken into
+  account.
 
 Installation
 ------------
 
-   $ pip install requirements-builder==0.2.2
+   $ pip install requirements-builder==0.2.3
 
 Documentation
 -------------

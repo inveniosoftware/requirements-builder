@@ -11,6 +11,15 @@
 Changes
 =======
 
+Version 0.2.3 (released 2017-03-09)
+-----------------------------------
+
+Bug fixes
+~~~~~~~~~
+
+- Fixes the issue with conditions on extra_require not being taken into
+  account.
+
 Version 0.2.2 (released 2017-02-01)
 -----------------------------------
 
