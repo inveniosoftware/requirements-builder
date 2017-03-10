@@ -29,23 +29,32 @@ def test_cli():
         assert result.exit_code == 0
         if sys.version_info[:2] == (2, 7):
             assert result.output == \
+                'CairoSVG==1.0.20\n' \
                 'click==5.0.0\n' \
                 'functools32==3.2.3-2\n' \
                 'ipaddr==2.1.11\n' \
                 'mock==1.3.0\n'
         else:
-            assert result.output == 'click==5.0.0\nmock==1.3.0\n'
+            assert result.output == \
+                'CairoSVG==1.0.20\n' \
+                'click==5.0.0\n' \
+                'mock==1.3.0\n'
 
         result = runner.invoke(cli, ['-l', 'pypi', 'data/setup.py'])
         assert result.exit_code == 0
 
         if sys.version_info[:2] == (2, 7):
-            assert result.output == 'click>=5.0.0\n' \
+            assert result.output == \
+                'CairoSVG<2.0.0,>=1.0.20\n' \
+                'click>=5.0.0\n' \
                 'functools32>=3.2.3-2\n' \
                 'ipaddr>=2.1.11\n' \
                 'mock>=1.3.0\n'
         else:
-            assert result.output == 'click>=5.0.0\nmock>=1.3.0\n'
+            assert result.output == \
+                'CairoSVG<2.0.0,>=1.0.20\n' \
+                'click>=5.0.0\n' \
+                'mock>=1.3.0\n'
 
         result = runner.invoke(cli, ['-l', 'dev', 'data/setup.py'])
         assert result.exit_code == 2
@@ -56,6 +65,7 @@ def test_cli():
         assert result.exit_code == 0
         if sys.version_info[:2] == (2, 7):
             assert result.output == \
+                'CairoSVG<2.0.0,>=1.0.20\n' \
                 '-e git+https://github.com/mitsuhiko/click.git#egg=click\n' \
                 'Cython>=0.20\n' \
                 'functools32>=3.2.3-2\n' \
@@ -63,6 +73,7 @@ def test_cli():
                 'mock>=1.3.0\n'
         else:
             assert result.output == \
+                'CairoSVG<2.0.0,>=1.0.20\n' \
                 '-e git+https://github.com/mitsuhiko/click.git#egg=click\n' \
                 'Cython>=0.20\n' \
                 'mock>=1.3.0\n'
@@ -75,19 +86,22 @@ def test_cli():
         with open(join(getcwd(), 'requirements.txt')) as f:
             if sys.version_info[:2] == (2, 7):
                 assert f.read() == \
+                    'CairoSVG==1.0.20\n' \
                     'click==5.0.0\n' \
                     'functools32==3.2.3-2\n' \
                     'ipaddr==2.1.11\n' \
                     'mock==1.3.0\n'
             else:
                 assert f.read() == \
-                    'click==5.0.0\nmock==1.3.0\n'
+                    'CairoSVG==1.0.20\n' \
+                    'click==5.0.0\n' \
+                    'mock==1.3.0\n'
 
 
 def test_cli_extras():
     """Test cli option extras."""
     runner = CliRunner()
-    output = ['click==5.0.0', 'mock==1.3.0']
+    output = ['CairoSVG==1.0.20', 'click==5.0.0', 'mock==1.3.0']
     if sys.version_info[:2] == (2, 7):
         output.append('functools32==3.2.3-2')
         output.append('ipaddr==2.1.11')

@@ -117,11 +117,13 @@ def iter_requirements(level, extras, pip_file, setup_fp):
         # skip things we already know
         # FIXME be smarter about merging things
 
-        # Check for markers and skip if not applicable
-
-        if hasattr(pkg, 'marker') and pkg.marker is not None \
-                and not pkg.marker.evaluate():
-            continue
+        # Evaluate environment markers skip if not applicable
+        if hasattr(pkg, 'marker') and pkg.marker is not None:
+            if not pkg.marker.evaluate():
+                continue
+            else:
+                # Remove markers from the output
+                pkg.marker = None
 
         if pkg.key in result:
             continue
@@ -145,17 +147,13 @@ def iter_requirements(level, extras, pip_file, setup_fp):
                     pkg.project_name, specs['>=']
                 )
             else:
-                result[pkg.key] = '{0}>={1}'.format(
-                    pkg.project_name, specs['>=']
-                )
+                result[pkg.key] = pkg
 
         elif '>' in specs:
             if level == 'min':
                 minver_error(pkg.project_name)
             else:
-                result[pkg.key] = '{0}>{1}'.format(
-                    pkg.project_name, specs['>']
-                )
+                result[pkg.key] = pkg
 
         else:
             if level == 'min':
