@@ -11,6 +11,14 @@
 Changes
 =======
 
+Version 0.2.4 (released 2017-03-10)
+-----------------------------------
+
+Bug fixes
+~~~~~~~~~
+
+- Fixes issue with upper version requirements being stripped from the output.
+
 Version 0.2.3 (released 2017-03-09)
 -----------------------------------
 
