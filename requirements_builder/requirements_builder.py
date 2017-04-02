@@ -61,8 +61,10 @@ def parse_pip_file(path):
                 elif line.startswith('-r'):
                     # recursive file command
                     splitted = re.split('-r\\s+', line)
-                    subrdev, subrnormal, substuff = parse_pip_file(splitted[1])
-                    for k, v in subrdev.iteritems():
+                    subrdev, subrnormal, substuff = parse_pip_file(
+                        os.path.join(os.path.dirname(path), splitted[1])
+                    )
+                    for k, v in subrdev.items():
                         if k not in rdev:
                             rdev[k] = v
                     rnormal.extend(subrnormal)
@@ -74,7 +76,7 @@ def parse_pip_file(path):
                     rnormal.append(line)
     except IOError:
         print(
-            'Warning: could not parse requirements file "{0}"!',
+            'Warning: could not parse requirements file "{0}"!'.format(path),
             file=sys.stderr
         )
 
