@@ -86,22 +86,28 @@ def iter_requirements(level, extras, pip_file, setup_fp):
     result = dict()
     requires = []
     stuff = []
-    if level == 'dev':
+    if level == 'dev' or setup_fp is None:
         result, requires, stuff = parse_pip_file(pip_file)
 
-    with mock.patch.object(setuptools, 'setup') as mock_setup:
-        sys.path.append(os.path.dirname(setup_fp.name))
-        g = {'__file__': setup_fp.name}
-        exec(setup_fp.read(), g)
-        sys.path.pop()
-        assert g['setup']  # silence warning about unused imports
+    install_requires = []
+    requires_extras = {}
+    if setup_fp is not None:
+        with mock.patch.object(setuptools, 'setup') as mock_setup:
+            sys.path.append(os.path.dirname(setup_fp.name))
+            g = {'__file__': setup_fp.name}
+            exec(setup_fp.read(), g)
+            sys.path.pop()
+            assert g['setup']  # silence warning about unused imports
 
-    # called arguments are in `mock_setup.call_args`
-    mock_args, mock_kwargs = mock_setup.call_args
-    install_requires = mock_kwargs.get('install_requires', [])
+        # called arguments are in `mock_setup.call_args`
+        mock_args, mock_kwargs = mock_setup.call_args
+        install_requires = mock_kwargs.get(
+            'install_requires', install_requires
+        )
+        requires_extras = mock_kwargs.get('extras_require', requires_extras)
+
     install_requires.extend(requires)
 
-    requires_extras = mock_kwargs.get('extras_require', {})
     for e, reqs in requires_extras.items():
         # Handle conditions on extras. See pkginfo_to_metadata function
         # in Wheel for details.

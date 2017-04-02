@@ -48,12 +48,17 @@ from .requirements_builder import iter_requirements
 @click.option(
     '--output', '-o', default='-', help='Output file.', type=click.File('w')
 )
-@click.argument('setup', type=click.File('r'))
-def cli(level, extras, req, output, setup):
+@click.argument('setup', type=click.File('r'), required=False)
+@click.pass_context
+def cli(ctx, level, extras, req, output, setup):
     """Calculate requirements for different purposes."""
     if level == 'dev' and not req:
         raise click.UsageError(
             "You must specify --req when using 'dev' level."
+        )
+    if not setup and not req:
+        raise click.MissingParameter(
+            ctx=ctx, param_hint='"setup"', param_type='argument'
         )
     extras = set(req.strip() for extra in extras for req in extra.split(','))
 
