@@ -26,7 +26,7 @@ with open('CHANGES.rst') as history_file:
     history = history_file.read().replace('.. :changes:', '')
 
 install_requires = [
-    'click>=5.0.0',
+    'click>=6.1.0',
     'mock>=1.3.0',
 ]
 

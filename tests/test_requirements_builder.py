@@ -27,12 +27,12 @@ def test_iter_requirements():
     # Min
     with open(SETUP) as f:
         assert list(iter_requirements("min", [], '', f)) == \
-            ['click==5.0.0', 'mock==1.3.0']
+            ['click==6.1.0', 'mock==1.3.0']
 
     # PyPI
     with open(SETUP) as f:
         assert list(iter_requirements("pypi", [], '', f)) == \
-            ['click>=5.0.0', 'mock>=1.3.0']
+            ['click>=6.1.0', 'mock>=1.3.0']
 
     # Dev
     with open(SETUP) as f:
