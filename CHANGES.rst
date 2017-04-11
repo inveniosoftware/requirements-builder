@@ -11,6 +11,14 @@
 Changes
 =======
 
+Version 0.2.5 (released 2017-04-11)
+-----------------------------------
+
+Bug fixes
+~~~~~~~~~
+
+- Fixes support of recursive requirements files.
+
 Version 0.2.4 (released 2017-03-10)
 -----------------------------------
 

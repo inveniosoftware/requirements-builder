@@ -1,8 +1,8 @@
 =============================
- Requirements-Builder v0.2.4
+ Requirements-Builder v0.2.5
 =============================
 
-Requirements-Builder v0.2.4 was released on March 10, 2017.
+Requirements-Builder v0.2.5 was released on April 11, 2017.
 
 About
 -----
@@ -12,12 +12,12 @@ Build requirements files from setup.py requirements.
 Bug fixes
 ---------
 
-- Fixes issue with upper version requirements being stripped from the output.
+- Fixes support of recursive requirements files.
 
 Installation
 ------------
 
-   $ pip install requirements-builder==0.2.4
+   $ pip install requirements-builder==0.2.5
 
 Documentation
 -------------
