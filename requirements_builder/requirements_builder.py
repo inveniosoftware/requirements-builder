@@ -96,7 +96,7 @@ def iter_requirements(level, extras, pip_file, setup_fp):
     if setup_fp is not None:
         with mock.patch.object(setuptools, 'setup') as mock_setup:
             sys.path.append(os.path.dirname(setup_fp.name))
-            g = {'__file__': setup_fp.name}
+            g = {'__file__': setup_fp.name, '__name__': '__main__'}
             exec(setup_fp.read(), g)
             sys.path.pop()
             assert g['setup']  # silence warning about unused imports
