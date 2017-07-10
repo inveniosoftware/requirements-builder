@@ -160,3 +160,13 @@ def test_cli_with_only_requirements(runner):
             'Cython==0.20',
             '-e git+https://github.com/mitsuhiko/click.git#egg=click'
         ]), result.output.split('\n')
+
+
+def test_cli_setup_with_if_main(runner):
+    """Test loading setup.py with 'if __name__ == '__main__' around setup."""
+    with runner.isolated_filesystem():
+        shutil.copytree(DATA, abspath(join(getcwd(), 'data/')))
+        result = runner.invoke(cli, ['-l', 'min', 'data/setup_if_main.py'])
+
+        assert result.exit_code == 0
+        assert result.output == 'click==5.0.0\n'
