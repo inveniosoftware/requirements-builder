@@ -11,6 +11,15 @@
 Changes
 =======
 
+Version 0.2.6 (released 2017-07-13)
+-----------------------------------
+
+Bug fixes
+~~~~~~~~~
+
+- Fixes fatal error if setup() is called under 'if __name__ == "__main__":'
+
+
 Version 0.2.5 (released 2017-04-11)
 -----------------------------------
 
