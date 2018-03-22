@@ -37,5 +37,5 @@ def test_iter_requirements():
     # Dev
     with open(SETUP) as f:
         assert list(iter_requirements("dev", [], REQ, f)) == \
-            ['-e git+https://github.com/mitsuhiko/click.git#egg=click',
+            ['-e git+https://github.com/pallets/click.git#egg=click',
              'mock>=1.3.0']

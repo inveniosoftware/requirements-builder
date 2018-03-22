@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Requirements-Builder
-# Copyright (C) 2015, 2016, 2017 CERN.
+# Copyright (C) 2015, 2016, 2017, 2018 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
@@ -39,12 +39,14 @@ def test_cli_min(runner):
             'CairoSVG==1.0.20\n' \
             'click==5.0.0\n' \
             'functools32==3.2.3-2\n' \
+            'invenio-records==1.0.0\n' \
             'ipaddr==2.1.11\n' \
             'mock==1.3.0\n'
     else:
         assert result.output == \
             'CairoSVG==1.0.20\n' \
             'click==5.0.0\n' \
+            'invenio-records==1.0.0\n' \
             'mock==1.3.0\n'
 
 
@@ -58,12 +60,14 @@ def test_cli_pypi(runner):
             'CairoSVG<2.0.0,>=1.0.20\n' \
             'click>=5.0.0\n' \
             'functools32>=3.2.3-2\n' \
+            'invenio-records==1.0.*\n' \
             'ipaddr>=2.1.11\n' \
             'mock>=1.3.0\n'
     else:
         assert result.output == \
             'CairoSVG<2.0.0,>=1.0.20\n' \
             'click>=5.0.0\n' \
+            'invenio-records==1.0.*\n' \
             'mock>=1.3.0\n'
 
 
@@ -85,6 +89,7 @@ def test_cli_dev(runner):
             '-e git+https://github.com/mitsuhiko/click.git#egg=click\n' \
             'Cython>=0.20\n' \
             'functools32>=3.2.3-2\n' \
+            'invenio-records==1.0.*\n' \
             'ipaddr>=2.1.11\n' \
             'mock>=1.3.0\n'
     else:
@@ -92,6 +97,7 @@ def test_cli_dev(runner):
             'CairoSVG<2.0.0,>=1.0.20\n' \
             '-e git+https://github.com/mitsuhiko/click.git#egg=click\n' \
             'Cython>=0.20\n' \
+            'invenio-records==1.0.*\n' \
             'mock>=1.3.0\n'
 
 
@@ -108,18 +114,23 @@ def test_cli_min_output(runner):
                 'CairoSVG==1.0.20\n' \
                 'click==5.0.0\n' \
                 'functools32==3.2.3-2\n' \
+                'invenio-records==1.0.0\n' \
                 'ipaddr==2.1.11\n' \
                 'mock==1.3.0\n'
         else:
             assert f.read() == \
                 'CairoSVG==1.0.20\n' \
                 'click==5.0.0\n' \
+                'invenio-records==1.0.0\n' \
                 'mock==1.3.0\n'
 
 
 def test_cli_extras(runner):
     """Test cli option extras."""
-    output = ['CairoSVG==1.0.20', 'click==5.0.0', 'mock==1.3.0']
+    output = ['CairoSVG==1.0.20',
+              'click==5.0.0',
+              'invenio-records==1.0.0',
+              'mock==1.3.0']
     if sys.version_info[:2] == (2, 7):
         output.append('functools32==3.2.3-2')
         output.append('ipaddr==2.1.11')

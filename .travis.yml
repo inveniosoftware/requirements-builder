@@ -1,5 +1,5 @@
 # This file is part of Requirements-Builder
-# Copyright (C) 2015, 2016, 2017 CERN.
+# Copyright (C) 2015, 2016, 2017, 2018 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
@@ -10,10 +10,10 @@ sudo: false
 language: python
 
 python:
+  - "3.7-dev"
   - "3.6"
   - "3.5"
   - "3.4"
-  - "3.3"
   - "2.7"
   - "pypy"
 

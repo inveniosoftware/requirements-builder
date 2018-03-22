@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Requirements-Builder
-# Copyright (C) 2015, 2016, 2017 CERN.
+# Copyright (C) 2015, 2016, 2017, 2018 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
@@ -162,6 +162,15 @@ def iter_requirements(level, extras, pip_file, setup_fp):
                 minver_error(pkg.project_name)
             else:
                 result[pkg.key] = pkg
+
+        elif '~=' in specs:
+            if level == 'min':
+                result[pkg.key] = '{0}=={1}'.format(
+                    pkg.project_name, specs['~='])
+            else:
+                ver, _ = os.path.splitext(specs['~='])
+                result[pkg.key] = '{0}=={1}.*'.format(
+                    pkg.project_name, ver)
 
         else:
             if level == 'min':
