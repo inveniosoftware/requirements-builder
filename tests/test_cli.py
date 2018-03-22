@@ -21,87 +21,100 @@ from requirements_builder.cli import cli
 DATA = abspath(join(dirname(__file__), 'data/'))
 
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def runner():
     """Click test runner."""
-    return CliRunner()
-
-
-def test_cli(runner):
-    """Test cli."""
+    runner = CliRunner()
     with runner.isolated_filesystem():
         shutil.copytree(DATA, abspath(join(getcwd(), 'data/')))
-        result = runner.invoke(cli, ['-l', 'min', 'data/setup.py'])
-        assert result.exit_code == 0
+        yield runner
+
+
+def test_cli_min(runner):
+    """Test cli."""
+    result = runner.invoke(cli, ['-l', 'min', 'data/setup.py'])
+    assert result.exit_code == 0
+    if sys.version_info[:2] == (2, 7):
+        assert result.output == \
+            'CairoSVG==1.0.20\n' \
+            'click==5.0.0\n' \
+            'functools32==3.2.3-2\n' \
+            'ipaddr==2.1.11\n' \
+            'mock==1.3.0\n'
+    else:
+        assert result.output == \
+            'CairoSVG==1.0.20\n' \
+            'click==5.0.0\n' \
+            'mock==1.3.0\n'
+
+
+def test_cli_pypi(runner):
+    """Test cli."""
+    result = runner.invoke(cli, ['-l', 'pypi', 'data/setup.py'])
+    assert result.exit_code == 0
+
+    if sys.version_info[:2] == (2, 7):
+        assert result.output == \
+            'CairoSVG<2.0.0,>=1.0.20\n' \
+            'click>=5.0.0\n' \
+            'functools32>=3.2.3-2\n' \
+            'ipaddr>=2.1.11\n' \
+            'mock>=1.3.0\n'
+    else:
+        assert result.output == \
+            'CairoSVG<2.0.0,>=1.0.20\n' \
+            'click>=5.0.0\n' \
+            'mock>=1.3.0\n'
+
+
+def test_cli_dev_erro(runner):
+    """Test cli."""
+    result = runner.invoke(cli, ['-l', 'dev', 'data/setup.py'])
+    assert result.exit_code == 2
+
+
+def test_cli_dev(runner):
+    """Test cli."""
+    result = runner.invoke(
+        cli, ['-l', 'dev', '-r', 'data/req.txt', 'data/setup.py']
+    )
+    assert result.exit_code == 0
+    if sys.version_info[:2] == (2, 7):
+        assert result.output == \
+            'CairoSVG<2.0.0,>=1.0.20\n' \
+            '-e git+https://github.com/mitsuhiko/click.git#egg=click\n' \
+            'Cython>=0.20\n' \
+            'functools32>=3.2.3-2\n' \
+            'ipaddr>=2.1.11\n' \
+            'mock>=1.3.0\n'
+    else:
+        assert result.output == \
+            'CairoSVG<2.0.0,>=1.0.20\n' \
+            '-e git+https://github.com/mitsuhiko/click.git#egg=click\n' \
+            'Cython>=0.20\n' \
+            'mock>=1.3.0\n'
+
+
+def test_cli_min_output(runner):
+    """Test cli."""
+    result = runner.invoke(
+        cli, ['-l', 'min', '-o', 'requirements.txt', 'data/setup.py']
+    )
+    assert result.exit_code == 0
+    assert result.output == ''
+    with open(join(getcwd(), 'requirements.txt')) as f:
         if sys.version_info[:2] == (2, 7):
-            assert result.output == \
+            assert f.read() == \
                 'CairoSVG==1.0.20\n' \
                 'click==5.0.0\n' \
                 'functools32==3.2.3-2\n' \
                 'ipaddr==2.1.11\n' \
                 'mock==1.3.0\n'
         else:
-            assert result.output == \
+            assert f.read() == \
                 'CairoSVG==1.0.20\n' \
                 'click==5.0.0\n' \
                 'mock==1.3.0\n'
-
-        result = runner.invoke(cli, ['-l', 'pypi', 'data/setup.py'])
-        assert result.exit_code == 0
-
-        if sys.version_info[:2] == (2, 7):
-            assert result.output == \
-                'CairoSVG<2.0.0,>=1.0.20\n' \
-                'click>=5.0.0\n' \
-                'functools32>=3.2.3-2\n' \
-                'ipaddr>=2.1.11\n' \
-                'mock>=1.3.0\n'
-        else:
-            assert result.output == \
-                'CairoSVG<2.0.0,>=1.0.20\n' \
-                'click>=5.0.0\n' \
-                'mock>=1.3.0\n'
-
-        result = runner.invoke(cli, ['-l', 'dev', 'data/setup.py'])
-        assert result.exit_code == 2
-
-        result = runner.invoke(
-            cli, ['-l', 'dev', '-r', 'data/req.txt', 'data/setup.py']
-        )
-        assert result.exit_code == 0
-        if sys.version_info[:2] == (2, 7):
-            assert result.output == \
-                'CairoSVG<2.0.0,>=1.0.20\n' \
-                '-e git+https://github.com/mitsuhiko/click.git#egg=click\n' \
-                'Cython>=0.20\n' \
-                'functools32>=3.2.3-2\n' \
-                'ipaddr>=2.1.11\n' \
-                'mock>=1.3.0\n'
-        else:
-            assert result.output == \
-                'CairoSVG<2.0.0,>=1.0.20\n' \
-                '-e git+https://github.com/mitsuhiko/click.git#egg=click\n' \
-                'Cython>=0.20\n' \
-                'mock>=1.3.0\n'
-
-        result = runner.invoke(
-            cli, ['-l', 'min', '-o', 'requirements.txt', 'data/setup.py']
-        )
-        assert result.exit_code == 0
-        assert result.output == ''
-        with open(join(getcwd(), 'requirements.txt')) as f:
-            if sys.version_info[:2] == (2, 7):
-                assert f.read() == \
-                    'CairoSVG==1.0.20\n' \
-                    'click==5.0.0\n' \
-                    'functools32==3.2.3-2\n' \
-                    'ipaddr==2.1.11\n' \
-                    'mock==1.3.0\n'
-            else:
-                assert f.read() == \
-                    'CairoSVG==1.0.20\n' \
-                    'click==5.0.0\n' \
-                    'mock==1.3.0\n'
 
 
 def test_cli_extras(runner):
@@ -110,30 +123,29 @@ def test_cli_extras(runner):
     if sys.version_info[:2] == (2, 7):
         output.append('functools32==3.2.3-2')
         output.append('ipaddr==2.1.11')
-    with runner.isolated_filesystem():
-        shutil.copytree(DATA, abspath(join(getcwd(), 'data/')))
-        result = runner.invoke(
-            cli, ['-l', 'min', '-e', 'docs', 'data/setup.py']
-        )
-        assert result.exit_code == 0
-        assert set(result.output.split('\n')
-                   ) == set(output + ['Sphinx==1.4.2', ''])
 
-        result = runner.invoke(
-            cli, ['-l', 'min', '-e', 'docs, tests', 'data/setup.py']
-        )
-        assert result.exit_code == 0
-        assert set(result.output.split('\n')
-                   ) == set(output + ['pytest==2.7', 'Sphinx==1.4.2', ''])
+    result = runner.invoke(
+        cli, ['-l', 'min', '-e', 'docs', 'data/setup.py']
+    )
+    assert result.exit_code == 0
+    assert set(result.output.split('\n')
+               ) == set(output + ['Sphinx==1.4.2', ''])
 
-        result = runner.invoke(
-            cli,
-            ['-l', 'min', '-e', 'docs, tests', '-e', 'flask', 'data/setup.py']
-        )
-        assert result.exit_code == 0
-        assert set(
-            result.output.split('\n')
-        ) == set(output + ['pytest==2.7', 'Sphinx==1.4.2', 'Flask==0.11', ''])
+    result = runner.invoke(
+        cli, ['-l', 'min', '-e', 'docs, tests', 'data/setup.py']
+    )
+    assert result.exit_code == 0
+    assert set(result.output.split('\n')
+               ) == set(output + ['pytest==2.7', 'Sphinx==1.4.2', ''])
+
+    result = runner.invoke(
+        cli,
+        ['-l', 'min', '-e', 'docs, tests', '-e', 'flask', 'data/setup.py']
+    )
+    assert result.exit_code == 0
+    assert set(
+        result.output.split('\n')
+    ) == set(output + ['pytest==2.7', 'Sphinx==1.4.2', 'Flask==0.11', ''])
 
 
 def test_cli_no_setup(runner):
