@@ -21,7 +21,7 @@ from requirements_builder.cli import cli
 DATA = abspath(join(dirname(__file__), 'data/'))
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope='function')
 def runner():
     """Click test runner."""
     runner = CliRunner()
