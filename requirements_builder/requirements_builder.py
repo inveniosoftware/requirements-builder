@@ -169,8 +169,8 @@ def iter_requirements(level, extras, pip_file, setup_fp):
                     pkg.project_name, specs['~='])
             else:
                 ver, _ = os.path.splitext(specs['~='])
-                result[pkg.key] = '{0}=={1}.*'.format(
-                    pkg.project_name, ver)
+                result[pkg.key] = '{0}>={1},=={2}.*'.format(
+                    pkg.project_name, specs['~='], ver)
 
         else:
             if level == 'min':
