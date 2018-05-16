@@ -22,6 +22,7 @@ requirements = [
     'CairoSVG<2.0.0,>=1.0.20',
     'functools32>=3.2.3-2; python_version=="2.7"',
     'invenio-records~=1.0.0',
+    'invenio[base,auth,metadata]>=3.0.0',
 ]
 
 extras_require = {

@@ -39,6 +39,14 @@ def minver_error(pkg_name):
     sys.exit(1)
 
 
+def build_pkg_name(pkg):
+    """Build package name, including extras if present."""
+    if pkg.extras:
+        return '{0}[{1}]'.format(
+            pkg.project_name, ','.join(sorted(pkg.extras)))
+    return pkg.project_name
+
+
 def parse_pip_file(path):
     """Parse pip requirements file."""
     # requirement lines sorted by importance
@@ -147,36 +155,37 @@ def iter_requirements(level, extras, pip_file, setup_fp):
             sys.exit(1)
 
         if '==' in specs:
-            result[pkg.key] = '{0}=={1}'.format(pkg.project_name, specs['=='])
+            result[pkg.key] = '{0}=={1}'.format(
+                build_pkg_name(pkg), specs['=='])
 
         elif '>=' in specs:
             if level == 'min':
                 result[pkg.key] = '{0}=={1}'.format(
-                    pkg.project_name, specs['>=']
+                    build_pkg_name(pkg), specs['>=']
                 )
             else:
                 result[pkg.key] = pkg
 
         elif '>' in specs:
             if level == 'min':
-                minver_error(pkg.project_name)
+                minver_error(build_pkg_name(pkg))
             else:
                 result[pkg.key] = pkg
 
         elif '~=' in specs:
             if level == 'min':
                 result[pkg.key] = '{0}=={1}'.format(
-                    pkg.project_name, specs['~='])
+                    build_pkg_name(pkg), specs['~='])
             else:
                 ver, _ = os.path.splitext(specs['~='])
                 result[pkg.key] = '{0}>={1},=={2}.*'.format(
-                    pkg.project_name, specs['~='], ver)
+                    build_pkg_name(pkg), specs['~='], ver)
 
         else:
             if level == 'min':
-                minver_error(pkg.project_name)
+                minver_error(build_pkg_name(pkg))
             else:
-                result[pkg.key] = pkg.project_name
+                result[pkg.key] = build_pkg_name(pkg)
 
     for s in stuff:
         yield s
