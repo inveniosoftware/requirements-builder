@@ -1,23 +1,29 @@
 =============================
- Requirements-Builder v0.2.6
+ Requirements-Builder v0.3.0
 =============================
 
-Requirements-Builder v0.2.6 was released on July 13, 2017.
+Requirements-Builder v0.3.0 was released on May 17, 2018.
 
 About
 -----
 
 Build requirements files from setup.py requirements.
 
+New features
+~~~~~~~~~~~~
+
+- Includes package extras in the generated result.
+
 Bug fixes
 ---------
 
-- Fixes fatal error if setup() is called under 'if __name__ == "__main__":'
+- Fixes ``~=`` selector output by including the minimum version
+  additionally to the X.* specifier.
 
 Installation
 ------------
 
-   $ pip install requirements-builder==0.2.6
+   $ pip install requirements-builder==0.3.0
 
 Documentation
 -------------

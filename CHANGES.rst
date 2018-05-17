@@ -1,6 +1,9 @@
 ..
     This file is part of Requirements-Builder
     Copyright (C) 2015, 2016 CERN.
+    Copyright (C) 2018 Swiss Data Science Center (SDSC)
+    A partnership between École Polytechnique Fédérale de Lausanne (EPFL) and
+    Eidgenössische Technische Hochschule Zürich (ETHZ).
 
     Requirements-Builder is free software; you can redistribute it and/or
     modify it under the terms of the Revised BSD License; see LICENSE
@@ -10,6 +13,20 @@
 
 Changes
 =======
+
+Version 0.3.0 (released 2018-05-17)
+-----------------------------------
+
+New features
+~~~~~~~~~~~~
+
+- Includes package extras in the generated result.
+
+Bug fixes
+---------
+
+- Fixes ``~=`` selector output by including the minimum version
+  additionally to the X.* specifier.
 
 Version 0.2.6 (released 2017-07-13)
 -----------------------------------

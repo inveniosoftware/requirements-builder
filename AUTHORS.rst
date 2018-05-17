@@ -1,7 +1,7 @@
 Authors
 -------
 
-* Jiri Kuncar <jiri.kuncar@cern.ch>
+* Jiri Kuncar <jiri.kuncar@gmail.com>
 * Lars Holm Nielsen <lars.holm.nielsen@cern.ch>
 * Marco Neumann <marco@crepererum.net>
 * Tibor Simko <tibor.simko@cern.ch>
