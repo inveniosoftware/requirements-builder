@@ -41,9 +41,9 @@ TravisCI:
 
    python:
      - "2.7"
-     - "3.3"
-     - "3.4"
      - "3.5"
+     - "3.6"
+     - "3.7"
 
    before_install:
      - "travis_retry pip install --upgrade pip"
@@ -70,9 +70,9 @@ How to integrate Requirements-Builder with tox:
 
     envlist =
         {py27}-{min,pypi,dev}
-        {py34}-{min,pypi,dev}
         {py35}-{min,pypi,dev}
         {py36}-{min,pypi,dev}
+        {py37}-{min,pypi,dev}
 
     [testenv]
     setenv =
@@ -101,9 +101,9 @@ When you are using tox, the TravisCI setup becomes much simpler.
 
     python:
       - "2.7"
-      - "3.4"
       - "3.5"
       - "3.6"
+      - "3.7"
 
     install:
       - pip install tox tox-travis
