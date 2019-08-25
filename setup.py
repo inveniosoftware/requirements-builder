@@ -43,8 +43,8 @@ tests_require = [
 
 extras_require = {
     'docs': [
-        'Sphinx<1.5.0,>=1.4.2',
-        'docutils<0.13,>=0.12',
+        'Sphinx<2.3,>=1.8.5',
+        'docutils<0.14,>=0.13.1',
     ],
     'tests': tests_require,
 }
@@ -81,7 +81,6 @@ setup(
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
