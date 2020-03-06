@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Requirements-Builder
-# Copyright (C) 2015, 2016, 2017, 2018 CERN.
+# Copyright (C) 2015, 2016, 2017, 2018, 2019, 2020 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
@@ -43,8 +43,7 @@ tests_require = [
 
 extras_require = {
     'docs': [
-        'Sphinx<1.5.0,>=1.4.2',
-        'docutils<0.13,>=0.12',
+        'Sphinx>=2.4',
     ],
     'tests': tests_require,
 }
@@ -78,12 +77,10 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
 )
