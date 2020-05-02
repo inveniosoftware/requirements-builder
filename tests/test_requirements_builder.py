@@ -13,8 +13,8 @@ from os.path import abspath, dirname, join
 
 from requirements_builder import __version__, iter_requirements
 
-REQ = abspath(join(dirname(__file__), "../requirements.devel.txt"))
-SETUP = abspath(join(dirname(__file__), "../setup.py"))
+REQ = abspath(join(dirname(__file__), "./fixtures/requirements.devel.txt"))
+SETUP = abspath(join(dirname(__file__), "./fixtures/setup.txt"))
 
 
 def test_version():
