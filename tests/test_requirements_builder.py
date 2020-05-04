@@ -39,3 +39,28 @@ def test_iter_requirements():
         assert list(iter_requirements("dev", [], REQ, f)) == \
             ['-e git+https://github.com/pallets/click.git#egg=click',
              'mock>=1.3.0']
+
+
+def test_iter_requirements_cfg():
+    """Test requirements-builder."""
+    req = abspath(join(dirname(__file__), "../requirements.devel.txt"))
+    setup = abspath(join(dirname(__file__), "../setup.py"))
+    setup_cfg = abspath(join(dirname(__file__), "../setup.cfg"))
+
+    # Min
+    with open(setup) as f:
+        with open(setup_cfg) as g:
+            assert list(iter_requirements("min", [], '', f, g)) == \
+                ['click==6.1.0', 'mock==1.3.0']
+
+    # PyPI
+    with open(setup) as f:
+        with open(setup_cfg) as g:
+            assert list(iter_requirements("pypi", [], '', f, g)) == \
+                ['click>=6.1.0', 'mock>=1.3.0']
+
+    # Dev
+    with open(setup) as f:
+        with open(setup_cfg) as g:
+            assert list(iter_requirements("dev", [], req, f, g)) == \
+                ['click>=6.1.0', 'mock>=1.3.0']
