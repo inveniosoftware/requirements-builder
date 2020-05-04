@@ -11,6 +11,8 @@
 
 from __future__ import absolute_import, print_function
 
+import os.path
+
 import click
 
 from .requirements_builder import iter_requirements
@@ -62,8 +64,20 @@ def cli(ctx, level, extras, req, output, setup):
         )
     extras = set(req.strip() for extra in extras for req in extra.split(','))
 
-    lines = (
-        '{0}\n'.format(req)
-        for req in iter_requirements(level, extras, req, setup)
-    )
-    output.writelines(lines)
+    # figure out the setup.cfg file
+    setup_cfg = None
+
+    if setup:
+        cfg = os.path.splitext(setup.name)[0] + ".cfg"
+        if os.path.exists(cfg):
+            setup_cfg = file.open(cfg, 'r')
+
+    try:
+        lines = (
+            '{0}\n'.format(req)
+            for req in iter_requirements(level, extras, req, setup, setup_cfg)
+        )
+        output.writelines(lines)
+    finally:
+        if setup_cfg:
+            setup_cfg.close()

@@ -14,6 +14,7 @@ from __future__ import absolute_import, print_function
 import os
 import re
 import sys
+import configparser
 
 import mock
 import pkg_resources
@@ -91,7 +92,7 @@ def parse_pip_file(path):
     return rdev, rnormal, stuff
 
 
-def iter_requirements(level, extras, pip_file, setup_fp):
+def iter_requirements(level, extras, pip_file, setup_fp, setup_cfg_fp=None):
     """Iterate over requirements."""
     result = dict()
     requires = []
@@ -115,6 +116,22 @@ def iter_requirements(level, extras, pip_file, setup_fp):
             'install_requires', install_requires
         )
         requires_extras = mock_kwargs.get('extras_require', requires_extras)
+
+    if setup_cfg_fp is not None:
+        parser = configparser.ConfigParser()
+        parser.read_file(setup_cfg_fp)
+
+        if parser.has_section("options"):
+            value = parser.get("options", "install_requires",
+                               fallback="").strip()
+
+            if value:
+                install_requires = [s.strip() for s in value.splitlines()]
+
+        if parser.has_section("options.extras_require"):
+            for name, value in parser.items("options.extras_require"):
+                requires_extras[name] = [s.strip()
+                                         for s in value.strip().splitlines()]
 
     install_requires.extend(requires)
 
