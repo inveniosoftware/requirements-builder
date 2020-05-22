@@ -50,7 +50,7 @@ from .requirements_builder import iter_requirements
 @click.option(
     '--output', '-o', default='-', help='Output file.', type=click.File('w')
 )
-@click.argument('setup', type=click.File('r'), required=False)
+@click.argument('setup', type=click.File('rb'), required=False)
 @click.pass_context
 def cli(ctx, level, extras, req, output, setup):
     """Calculate requirements for different purposes."""
