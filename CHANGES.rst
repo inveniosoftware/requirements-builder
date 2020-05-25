@@ -1,6 +1,6 @@
 ..
     This file is part of Requirements-Builder
-    Copyright (C) 2015, 2016 CERN.
+    Copyright (C) 2015, 2016, 2020 CERN.
     Copyright (C) 2018 Swiss Data Science Center (SDSC)
     A partnership between École Polytechnique Fédérale de Lausanne (EPFL) and
     Eidgenössische Technische Hochschule Zürich (ETHZ).
@@ -13,6 +13,15 @@
 
 Changes
 =======
+
+Version 0.4.0 (released 2020-05-25)
+-----------------------------------
+
+New features
+~~~~~~~~~~~~
+
+- Adds support for parsing setup.cfg.
+
 
 Version 0.3.0 (released 2018-05-17)
 -----------------------------------
