@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Requirements-Builder
-# Copyright (C) 2015, 2016, 2017 CERN.
+# Copyright (C) 2015-2020 CERN.
 # Copyright (C) 2018 Swiss Data Science Center (SDSC)
 # A partnership between École Polytechnique Fédérale de Lausanne (EPFL) and
 # Eidgenössische Technische Hochschule Zürich (ETHZ).
@@ -19,4 +19,4 @@ This file is imported by ``requirements-builder.__init__``, and parsed by
 # Do not change the format of this next line. Doing so risks breaking
 # setup.py and docs/conf.py
 
-__version__ = "0.4.1"
+__version__ = "0.4.2"
