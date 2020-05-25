@@ -14,8 +14,10 @@ from __future__ import absolute_import, print_function
 import os
 import re
 import sys
-import configparser
-
+try:
+    import configparser
+except ImportError:  # pragma: no cover
+    import ConfigParser as configparser
 import mock
 import pkg_resources
 import setuptools
