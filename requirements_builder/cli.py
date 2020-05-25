@@ -70,7 +70,7 @@ def cli(ctx, level, extras, req, output, setup):
     if setup:
         cfg = os.path.splitext(setup.name)[0] + ".cfg"
         if os.path.exists(cfg):
-            setup_cfg = file.open(cfg, 'r')
+            setup_cfg = open(cfg, 'r')
 
     try:
         lines = (
