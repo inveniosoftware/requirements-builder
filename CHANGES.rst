@@ -14,6 +14,14 @@
 Changes
 =======
 
+Version 0.4.1 (released 2020-05-25)
+-----------------------------------
+
+Bug fixes
+~~~~~~~~~
+
+- Fixes "setup.cfg" file reading issue.
+
 Version 0.4.0 (released 2020-05-25)
 -----------------------------------
 
