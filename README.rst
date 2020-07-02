@@ -22,7 +22,7 @@
 .. image:: https://img.shields.io/pypi/dm/requirements-builder.svg
         :target: https://pypi.python.org/pypi/requirements-builder
 
-.. image:: https://img.shields.io/github/license/inveniosoftware/requirements-builder.svg
+.. image:: https://img.shields.io/pypi/l/requirements-builder.svg
         :target: https://github.com/inveniosoftware/requirements-builder/blob/master/LICENSE
 
 About
@@ -31,6 +31,8 @@ About
 Build requirements from setup.py to test your package against minimum,
 latest and development versions of your package dependencies. Particularly
 useful when combined with your CI systems build matrix.
+
+Full documentation at `requirements-builder.readthedocs.io <https://requirements-builder.readthedocs.io/en/latest/>`__
 
 Installation
 ============
