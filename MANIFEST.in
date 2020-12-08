@@ -26,3 +26,4 @@ recursive-include docs *.rst conf.py Makefile
 recursive-include tests *
 recursive-exclude * *.py[co]
 recursive-exclude * __pycache__
+recursive-include .github/workflows *.yml
