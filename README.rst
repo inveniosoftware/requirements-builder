@@ -10,8 +10,8 @@
  Requirements-Builder
 ======================
 
-.. image:: https://img.shields.io/travis/inveniosoftware/requirements-builder.svg
-        :target: https://travis-ci.org/inveniosoftware/requirements-builder
+.. image:: https://github.com/inveniosoftware/requirements-builder/workflows/CI/badge.svg
+        :target: https://github.com/inveniosoftware/requirements-builder/actions?query=workflow%3ACI
 
 .. image:: https://img.shields.io/coveralls/inveniosoftware/requirements-builder.svg
         :target: https://coveralls.io/r/inveniosoftware/requirements-builder
