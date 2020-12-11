@@ -51,16 +51,16 @@ def test_iter_requirements_cfg():
     with open(setup) as f:
         with open(setup_cfg) as g:
             assert list(iter_requirements("min", [], '', f, g)) == \
-                ['click==6.1.0', 'mock==1.3.0']
+                ['click==7.0', 'mock==1.3.0']
 
     # PyPI
     with open(setup) as f:
         with open(setup_cfg) as g:
             assert list(iter_requirements("pypi", [], '', f, g)) == \
-                ['click>=6.1.0', 'mock<4,>=1.3.0']
+                ['click>=7.0', 'mock<4,>=1.3.0']
 
     # Dev
     with open(setup) as f:
         with open(setup_cfg) as g:
             assert list(iter_requirements("dev", [], req, f, g)) == \
-                ['click>=6.1.0', 'mock<4,>=1.3.0']
+                ['click>=7.0', 'mock<4,>=1.3.0']

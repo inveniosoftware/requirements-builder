@@ -9,10 +9,10 @@
 #
 """Build requirements files from setup.py requirements."""
 
-from setuptools import setup
-
 import os
+
 import testpkh
+from setuptools import setup
 
 dirname = os.path.dirname(__file__)
 
