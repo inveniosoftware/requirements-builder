@@ -19,6 +19,7 @@ from os.path import abspath, dirname, join
 
 import pytest
 from click.testing import CliRunner
+
 from requirements_builder.cli import cli
 
 DATA = abspath(join(dirname(__file__), 'data/'))

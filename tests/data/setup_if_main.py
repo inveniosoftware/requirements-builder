@@ -9,10 +9,8 @@
 #
 """Build requirements files from setup.py requirements."""
 
-from setuptools import setup
-
 import testpkh
-
+from setuptools import setup
 
 requirements = [
     'click>=5.0.0',
