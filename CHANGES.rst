@@ -14,6 +14,15 @@
 Changes
 =======
 
+Version 0.4.3 (released 2021-05-12)
+-----------------------------------
+
+Bug fixes
+~~~~~~~~~
+
+- Pins ``click`` to ``<8.0`` due to incompatibility.
+
+
 Version 0.4.2 (released 2020-05-25)
 -----------------------------------
 
