@@ -33,7 +33,7 @@ from .requirements_builder import iter_requirements
 @click.option(
     '--extras',
     '-e',
-    default='',
+    default=[],
     help='Comma separated list of extras.',
     multiple=True
 )
