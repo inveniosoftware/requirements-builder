@@ -14,6 +14,14 @@
 Changes
 =======
 
+Version 0.4.4 (released 2021-05-12)
+-----------------------------------
+
+Bug fixes
+~~~~~~~~~
+
+- Fixes compatibility with ``click`` v8.0.
+
 Version 0.4.3 (released 2021-05-12)
 -----------------------------------
 
