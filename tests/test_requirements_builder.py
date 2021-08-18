@@ -63,4 +63,5 @@ def test_iter_requirements_cfg():
     with open(setup) as f:
         with open(setup_cfg) as g:
             assert list(iter_requirements("dev", [], req, f, g)) == \
-                ['click>=7.0', 'mock<4,>=1.3.0']
+                ['-e git+https://github.com/pallets/click.git#egg=click',
+                 'mock<4,>=1.3.0']

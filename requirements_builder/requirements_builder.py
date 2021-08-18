@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Requirements-Builder
-# Copyright (C) 2015, 2016, 2017, 2018 CERN.
+# Copyright (C) 2015, 2016, 2017, 2018, 2021 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
@@ -15,14 +15,14 @@ import os
 import re
 import sys
 
+import mock
+import pkg_resources
+import setuptools
+
 try:
     import configparser
 except ImportError:  # pragma: no cover
     import ConfigParser as configparser
-
-import mock
-import pkg_resources
-import setuptools
 
 
 def parse_set(string):
