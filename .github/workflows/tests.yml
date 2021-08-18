@@ -30,7 +30,7 @@ jobs:
     strategy:
       matrix:
           python-version: [3.6, 3.7, 3.8, 3.9]
-          requirements-level: [min, pypi]
+          requirements-level: [min, pypi, dev]
 
     steps:
       - name: Checkout
@@ -44,7 +44,12 @@ jobs:
       - name: Generate dependencies
         run: |
           python -m pip install --upgrade pip setuptools py wheel requirements-builder
+          if [ ${{ matrix.requirements-level }} = "dev" ]
+          then
+          requirements-builder -e all --level=${{ matrix.requirements-level }} --dev requirements.devel.txt setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
+          else
           requirements-builder -e all --level=${{ matrix.requirements-level }} setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
+          fi
 
       - name: Cache pip
         uses: actions/cache@v2
