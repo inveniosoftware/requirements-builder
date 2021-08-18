@@ -1,9 +1,8 @@
 # This file is part of Requirements-Builder
-# Copyright (C) 2015, 2018, 2020 CERN.
+# Copyright (C) 2015, 2018, 2020, 2021 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
 # file for more details.
 
-# Latest click uses f-str, re-enable once 3.5 support is dropped by September 2020
-#-e git+https://github.com/pallets/click.git#egg=click
+-e git+https://github.com/pallets/click.git#egg=click
