@@ -46,7 +46,7 @@ jobs:
           python -m pip install --upgrade pip setuptools py wheel requirements-builder
           if [ ${{ matrix.requirements-level }} = "dev" ]
           then
-          requirements-builder -e all --level=${{ matrix.requirements-level }} --dev requirements.devel.txt setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
+          requirements-builder -e all --level=${{ matrix.requirements-level }} --req=requirements.devel.txt setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
           else
           requirements-builder -e all --level=${{ matrix.requirements-level }} setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
           fi
