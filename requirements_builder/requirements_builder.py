@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Requirements-Builder
-# Copyright (C) 2015, 2016, 2017, 2018 CERN.
+# Copyright (C) 2015, 2016, 2017, 2018, 2022 CERN.
 #
 # Requirements-Builder is free software; you can redistribute it and/or
 # modify it under the terms of the Revised BSD License; see LICENSE
@@ -11,24 +11,26 @@
 
 from __future__ import absolute_import, print_function
 
+import configparser
 import os
 import re
 import sys
 
-try:
-    import configparser
-except ImportError:  # pragma: no cover
-    import ConfigParser as configparser
 try:
     import tomllib
 except ImportError:  # pragma: no cover
     # python 3.10 and older
     import tomli as tomllib
 
-
 import mock
 import pkg_resources
 import setuptools
+
+try:
+    from poetry.core.packages.utils.utils import create_nested_marker
+    from poetry.core.semver import parse_constraint
+except ImportError:  # pragma: no cover
+    parse_constraint = None
 
 
 def parse_set(string):
@@ -102,7 +104,25 @@ def parse_pip_file(path):
     return rdev, rnormal, stuff
 
 
-def iter_requirements(level, extras, pip_file, setup_fp, setup_cfg_fp=None, pyproject_toml_fp=None):
+def inline_semver(semver):
+    """Inline a version coming from Poetry (semver) into a supported format."""
+    version = parse_constraint(semver['version'])
+
+    if "python" in semver:
+        marker = create_nested_marker(
+            'python_version', parse_constraint(semver['python'])
+        )
+        version = f"{version}; {marker}"
+
+    return version
+
+
+def iter_requirements(level,
+                      extras,
+                      pip_file,
+                      setup_fp,
+                      setup_cfg_fp=None,
+                      pyproject_toml_fp=None):
     """Iterate over requirements."""
     result = dict()
     requires = []
@@ -146,11 +166,45 @@ def iter_requirements(level, extras, pip_file, setup_fp, setup_cfg_fp=None, pypr
     if pyproject_toml_fp is not None:
         toml_dict = tomllib.load(pyproject_toml_fp)
         toml_project = toml_dict.get("project")
-        toml_requires = toml_project.get("dependencies")
-        if toml_requires is not None:
+        if toml_project:
+            toml_requires = toml_project.get("dependencies")
+            optional_dependencies = toml_project.get("optional-dependencies")
+
+        # Poetry support is present
+        elif parse_constraint and "poetry" in toml_dict.get("tool", {}):
+            dependencies = toml_dict["tool"]["poetry"].get("dependencies", {})
+            # Unify version into dict
+            dependencies = {
+                k: isinstance(v, dict) and v or {"version": v}
+                for k, v in dependencies.items()
+                if k != "python"  # Skip Python
+            }
+
+            # Converts the semver constraint into usual ones
+            toml_requires = [
+                f"{k} {inline_semver(v)}"
+                for k, v in dependencies.items()
+                if not v.get("optional", False)  # skip optional packages
+            ]
+
+            extras = toml_dict["tool"]["poetry"].get("extras", {})
+            optional_dependencies = {
+                extra: [
+                    # Fetch the semver contraint into the dependencies
+                    f"{k} {parse_constraint(dependencies[k]['version'])}"
+                    for dependency in deps
+                ]
+                for extra, deps in extras.items()
+            }
+
+        else:
+            toml_requires = {}
+            optional_dependencies = {}
+
+        if toml_requires:
             install_requires.extend(toml_requires)
-        optional_dependencies = toml_project.get("optional-dependencies")
-        if optional_dependencies is not None:
+
+        if optional_dependencies:
             for name, value in optional_dependencies.items():
                 requires_extras[name] = value
 

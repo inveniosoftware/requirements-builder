@@ -41,6 +41,9 @@ Requirements-Builder is on PyPI so all you need is::
 
     $ pip install requirements-builder
 
+    # With Poetry support
+    $ pip install requirements-builder[poetry]
+
 Or, if you have virtualenvwrapper installed::
 
     $ mkvirtualenv requirements-builder

@@ -133,3 +133,56 @@ def test_iter_requirements_toml():
                     setup_fp=setup_py_fp,
                     pyproject_toml_fp=pyproject_toml_fp
                     )) == expected
+
+
+def test_iter_requirements_toml_poetry():
+    """Test requirements-builder for pyproject.toml (poetry)."""
+
+    setup_py = abspath(
+        join(dirname(__file__), "fixtures", "setup_py_placeholder.txt")
+        )
+    pyproject_toml = abspath(
+        join(dirname(__file__), "fixtures", "poetry.toml")
+        )
+    req = abspath(join(dirname(__file__), "../requirements.devel.txt"))
+
+    # Min
+    with open(setup_py) as setup_py_fp:
+        with open(pyproject_toml, 'rb') as pyproject_toml_fp:
+            expected = ['click==7.0', 'mock==1.3.0']
+            if not _has_toml_lib():
+                expected.append("tomli==2.0.0")
+            assert list(iter_requirements(
+                    "min",
+                    [],
+                    '',
+                    setup_fp=setup_py_fp,
+                    pyproject_toml_fp=pyproject_toml_fp
+                    )) == expected
+    # # PyPI
+    with open(setup_py) as setup_py_fp:
+        with open(pyproject_toml, 'rb') as pyproject_toml_fp:
+            expected = ['click>=7.0', 'mock<4,>=1.3.0']
+            if not _has_toml_lib():
+                expected.append("tomli>=2.0.0")
+            assert list(iter_requirements(
+                    "pypi",
+                    [],
+                    '',
+                    setup_fp=setup_py_fp,
+                    pyproject_toml_fp=pyproject_toml_fp
+                    )) == expected
+
+    # Dev
+    with open(setup_py) as setup_py_fp:
+        with open(pyproject_toml, 'rb') as pyproject_toml_fp:
+            expected = ['click>=7.0', 'mock<4,>=1.3.0']
+            if not _has_toml_lib():
+                expected.append("tomli>=2.0.0")
+            assert list(iter_requirements(
+                    "dev",
+                    [],
+                    req,
+                    setup_fp=setup_py_fp,
+                    pyproject_toml_fp=pyproject_toml_fp
+                    )) == expected
