@@ -102,7 +102,14 @@ def parse_pip_file(path):
     return rdev, rnormal, stuff
 
 
-def iter_requirements(level, extras, pip_file, setup_fp, setup_cfg_fp=None, pyproject_toml_fp=None):
+def iter_requirements(
+        level,
+        extras,
+        pip_file,
+        setup_fp,
+        setup_cfg_fp=None,
+        pyproject_toml_fp=None
+        ):
     """Iterate over requirements."""
     result = dict()
     requires = []

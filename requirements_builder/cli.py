@@ -80,7 +80,14 @@ def cli(ctx, level, extras, req, output, setup):
     try:
         lines = (
             '{0}\n'.format(req)
-            for req in iter_requirements(level, extras, req, setup, setup_cfg, pyproject_toml_fp)
+            for req in iter_requirements(
+                level,
+                extras,
+                req,
+                setup,
+                setup_cfg,
+                pyproject_toml_fp
+            )
         )
         output.writelines(lines)
     finally:
