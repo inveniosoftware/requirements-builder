@@ -20,7 +20,7 @@ SETUP = abspath(join(dirname(__file__), "./fixtures/setup.txt"))
 
 def _has_toml_lib():
     # tomlib is part of the batteries included since 3.11
-    if sys.version_info >= (3, 11)
+    return sys.version_info >= (3, 11)
 
 
 def test_version():
