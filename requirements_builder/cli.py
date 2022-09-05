@@ -64,18 +64,30 @@ def cli(ctx, level, extras, req, output, setup):
         )
     extras = set(req.strip() for extra in extras for req in extra.split(','))
 
-    # figure out the setup.cfg file
+    # figure out the setup.cfg and pyproject.toml file
     setup_cfg = None
+    pyproject_toml_fp = None
 
     if setup:
         cfg = os.path.splitext(setup.name)[0] + ".cfg"
         if os.path.exists(cfg):
             setup_cfg = open(cfg, 'r')
 
+        toml_path = os.path.join(os.path.dirname(setup.name), "pyproject.toml")
+        if os.path.exists(toml_path):
+            pyproject_toml_fp = open(toml_path, 'rb')
+
     try:
         lines = (
             '{0}\n'.format(req)
-            for req in iter_requirements(level, extras, req, setup, setup_cfg)
+            for req in iter_requirements(
+                level,
+                extras,
+                req,
+                setup,
+                setup_cfg,
+                pyproject_toml_fp
+            )
         )
         output.writelines(lines)
     finally:

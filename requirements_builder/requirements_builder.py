@@ -19,6 +19,12 @@ try:
     import configparser
 except ImportError:  # pragma: no cover
     import ConfigParser as configparser
+try:
+    import tomllib
+except ImportError:  # pragma: no cover
+    # python 3.10 and older
+    import tomli as tomllib
+
 
 import mock
 import pkg_resources
@@ -96,7 +102,14 @@ def parse_pip_file(path):
     return rdev, rnormal, stuff
 
 
-def iter_requirements(level, extras, pip_file, setup_fp, setup_cfg_fp=None):
+def iter_requirements(
+        level,
+        extras,
+        pip_file,
+        setup_fp,
+        setup_cfg_fp=None,
+        pyproject_toml_fp=None
+        ):
     """Iterate over requirements."""
     result = dict()
     requires = []
@@ -136,6 +149,17 @@ def iter_requirements(level, extras, pip_file, setup_fp, setup_cfg_fp=None):
             for name, value in parser.items("options.extras_require"):
                 requires_extras[name] = [s.strip()
                                          for s in value.strip().splitlines()]
+
+    if pyproject_toml_fp is not None:
+        toml_dict = tomllib.load(pyproject_toml_fp)
+        toml_project = toml_dict.get("project")
+        toml_requires = toml_project.get("dependencies")
+        if toml_requires is not None:
+            install_requires.extend(toml_requires)
+        optional_dependencies = toml_project.get("optional-dependencies")
+        if optional_dependencies is not None:
+            for name, value in optional_dependencies.items():
+                requires_extras[name] = value
 
     install_requires.extend(requires)
 

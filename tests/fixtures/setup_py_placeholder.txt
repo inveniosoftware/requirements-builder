@@ -1,0 +1,6 @@
+# an empty placeholder setup.py fixture for use with tests 
+# that set dependencies in setup.cfg/pyproject.toml
+
+from setuptools import setup
+
+setup()
