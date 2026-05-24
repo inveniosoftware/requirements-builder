@@ -1,11 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# This file is part of Requirements-Builder
-# Copyright (C) 2017 CERN.
-#
-# Requirements-Builder is free software; you can redistribute it and/or
-# modify it under the terms of the Revised BSD License; see LICENSE
-# file for more details.
+# SPDX-FileCopyrightText: 2017 CERN.
+# SPDX-License-Identifier: BSD-3-Clause
 #
 """Build requirements files from setup.py requirements."""
 
